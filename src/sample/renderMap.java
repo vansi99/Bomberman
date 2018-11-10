@@ -36,6 +36,12 @@ public class renderMap {
                         canvas.getChildren().add(wall.imageWall);
                         continue;
                     }
+                    if(currentLine.charAt(i) == '*'){
+                        int [] location = {columeOfMatrix * sizeOfStaticObject, rowOfMatrix * sizeOfStaticObject};
+                        Box box = new Box(location);
+                        canvas.getChildren().add(box.imageBox);
+                        continue;
+                    }
                 }
                 rowOfMatrix++;
                 currentLine = bufferedReader.readLine();
