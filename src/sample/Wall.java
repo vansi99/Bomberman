@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Wall extends renderMap {
-    protected ImageView imageWall = new ImageView(new Image(getClass().getResourceAsStream("/images/edit/png/wall40.png")));
+    protected ImageView imageWall = new ImageView(new Image(getClass().getResourceAsStream("/images/edit/png/editwall2.png")));
 
     public Wall(){
     }

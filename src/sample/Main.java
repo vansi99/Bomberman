@@ -16,7 +16,7 @@ public class Main extends Application {
         renderMap render = new renderMap();
 //        System.out.println(render.readerFileToRenderMap("Map.txt"));
         root.getChildren().add(render.readerFileToRenderMap("Map.txt"));
-        primaryStage.setScene(new Scene(root, 900, 650));
+        primaryStage.setScene(new Scene(root, 740, 580));
         primaryStage.show();
     }
     public static void main(String[] args) {
