@@ -1,6 +1,7 @@
-package sample;
+package Map;
 
 import javafx.scene.layout.Pane;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
