@@ -39,13 +39,13 @@ public class renderMap {
                     }
                     if(currentLine.charAt(i) == '*'){
                         int[] location = {columeOfMatrix * sizeOfStaticObject + margin, rowOfMatrix * sizeOfStaticObject + margin};
-                        Box box = new Box(location);
-                        canvas.getChildren().add(box.imageBox);
+                        Brick brick = new Brick(location);
+                        canvas.getChildren().add(brick.imageBrick);
                         continue;
                     }
                     if(currentLine.charAt(i) == '%'){
                         int[] location = {columeOfMatrix * sizeOfStaticObject + margin, rowOfMatrix * sizeOfStaticObject + margin};
-                        centerWall centerWall = new centerWall(location);
+                        CenterWall centerWall = new CenterWall(location);
                         canvas.getChildren().add(centerWall.imageCenterWall);
                         continue;
                     }

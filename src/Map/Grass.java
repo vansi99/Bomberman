@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 
 public class Grass extends renderMap {
-    protected ImageView imageGrass = new ImageView(new Image(getClass().getResourceAsStream("/images/edit/png/grass.png")));
+    protected ImageView imageGrass = new ImageView(new Image(getClass().getResourceAsStream("/images/edit/png/grass40.png")));
 
     public Grass(){
     }
