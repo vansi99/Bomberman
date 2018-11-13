@@ -14,7 +14,6 @@ public class renderMap {
     public renderMap(){
     }
     public renderMap(int[] location){
-//        location = margin;
     }
 
     public Pane readerFileToRenderMap(String path) throws Exception{
