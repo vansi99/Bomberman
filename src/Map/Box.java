@@ -1,9 +1,9 @@
-package sample;
+package Map;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Box extends renderMap{
+public class Box extends renderMap {
     protected ImageView imageBox = new ImageView(new Image(getClass().getResourceAsStream("/images/edit/png/editbrick.png")));
     public Box(){
     }

@@ -1,5 +1,6 @@
-package sample;
+package Map;
 
+import Map.renderMap;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
