@@ -15,7 +15,6 @@ import javafx.scene.input.KeyCode;
 import main.BombermanFactory;
 import main.BombermanType;
 
-
 public class Main extends GameApplication {
 
     public static final int TILE_SIZE = 60;

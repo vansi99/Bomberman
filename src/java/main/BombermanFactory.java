@@ -10,9 +10,7 @@ import controller.PlayerControl;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
 import main.BombermanType;
-
 import static com.almasb.fxgl.app.DSLKt.texture;
 
 
@@ -21,6 +19,7 @@ public class BombermanFactory implements TextEntityFactory {
     public Entity newBacground(SpawnData data){
         return Entities.builder()
                 .at(0,0)
+                .viewFromNodeWithBBox(new EntityView(new Rectangle(15* main.Main.TILE_SIZE , 11* main.Main.TILE_SIZE, Color.LIGHTGREEN)))
                 .viewFromNodeWithBBox(new EntityView(new Rectangle(15* main.Main.TILE_SIZE , 11* main.Main.TILE_SIZE, Color.LIGHTGREEN)))
                 .renderLayer(RenderLayer.BACKGROUND)
                 .build();
