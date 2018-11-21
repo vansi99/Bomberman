@@ -37,8 +37,8 @@ public class Main extends GameApplication {
         settings.setHeight(11 * TILE_SIZE);
         settings.setTitle("BombermanApp");
         settings.setVersion("0.1");
-        settings.setIntroEnabled(true);
-        settings.setMenuEnabled(true);
+        settings.setIntroEnabled(false);
+        settings.setMenuEnabled(false);
         settings.setApplicationMode(ApplicationMode.DEVELOPER);
 
     }
@@ -46,7 +46,6 @@ public class Main extends GameApplication {
     @Override
     protected void initInput(){
         getInput().addAction(new UserAction("Move Up") {
-
             @Override
             protected void onAction() { getPlayerControl().up();}
         }, KeyCode.W);

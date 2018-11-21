@@ -63,7 +63,6 @@ public class PlayerControl extends Component {
                 .spawn("Bomb", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE).put("radius", Main.TILE_SIZE / 10));
         FXGL.getMasterTimer().runOnceAfter(() -> {
             bomb.getComponent(BombControl.class).explode(x,y);
-            bricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BRICK);
             bombsPlaced--;
         }, Duration.seconds(2));
 
@@ -116,9 +115,8 @@ public class PlayerControl extends Component {
             walls = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.WALL);
         }
 
-        if(bricks == null){
-            bricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BRICK);
-        }
+
+        bricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BRICK);
 
         double mag = Math.sqrt(dx * dx + dy * dy);
         long length = Math.round(mag);
