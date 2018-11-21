@@ -33,7 +33,7 @@ public class PlayerControl extends Component {
 
     @Override
     public void onUpdate( double tpf){
-        speed = tpf * 15;
+        speed = tpf * 60;
 
         if (position.getX() < 0) {
             position.setX(Main.TILE_SIZE * 11 - bbox.getWidth() - 5);
