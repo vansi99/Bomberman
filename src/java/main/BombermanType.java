@@ -1,5 +1,6 @@
 package main;
 
 public enum  BombermanType {
-    PLAYER, WALL, BRICK, BOMB, POWERUP
+    PLAYER, WALL, BRICK, BOMB, FLAME, GRASS
+
 }

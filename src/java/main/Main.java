@@ -1,7 +1,9 @@
 package main;
 
 import com.almasb.fxgl.app.ApplicationMode;
+import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
+import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.Level;
 import com.almasb.fxgl.extra.ai.pathfinding.AStarGrid;
@@ -17,7 +19,7 @@ import main.BombermanType;
 
 public class Main extends GameApplication {
 
-    public static final int TILE_SIZE = 60;
+    public static final int TILE_SIZE = 40;
 
     private AStarGrid grid;
 
@@ -35,9 +37,10 @@ public class Main extends GameApplication {
         settings.setHeight(11 * TILE_SIZE);
         settings.setTitle("BombermanApp");
         settings.setVersion("0.1");
-        settings.setIntroEnabled(false);
-        settings.setMenuEnabled(false);
+        settings.setIntroEnabled(true);
+        settings.setMenuEnabled(true);
         settings.setApplicationMode(ApplicationMode.DEVELOPER);
+
     }
 
     @Override
@@ -65,6 +68,14 @@ public class Main extends GameApplication {
 
             }
         }, KeyCode.D);
+
+        getInput().addAction(new UserAction("Place Bomb") {
+            @Override
+            protected void onAction() {
+                getPlayerControl().placeBomb();
+
+            }
+        }, KeyCode.F);
     }
 
     @Override
@@ -78,8 +89,7 @@ public class Main extends GameApplication {
         Level level = levelParser.parse("levels/0.txt");
 
         getGameWorld().setLevel(level);
-
-        getGameWorld().spawn("BG");
+        getGameWorld().spawn("player");
 
         grid = new AStarGrid(Main.TILE_SIZE*11, Main.TILE_SIZE*11);
 
@@ -106,7 +116,6 @@ public class Main extends GameApplication {
     @Override
     protected void onUpdate(double tpf){
     }
-
 
     public static void main(String[] args) {
         launch(args);
