@@ -9,6 +9,7 @@ import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.entity.components.BoundingBoxComponent;
 import com.almasb.fxgl.entity.components.PositionComponent;
 import com.almasb.fxgl.entity.view.EntityView;
+import com.almasb.fxgl.texture.Texture;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -17,6 +18,8 @@ import main.Main;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.almasb.fxgl.app.DSLKt.texture;
 
 
 public class BombControl extends Component {
@@ -48,12 +51,13 @@ public class BombControl extends Component {
                 entity.setRenderLayer(RenderLayer.BACKGROUND);
             }, Duration.seconds(0.3));
 
-                return true;
+                return false;
             }
         else if(entity.isType(BombermanType.GRASS)){
+            Texture view = texture("Grass/grasspecies2.png");
             entity.setViewWithBBox(new Rectangle(Main.TILE_SIZE, Main.TILE_SIZE, Color.RED.saturate()));
             FXGL.getMasterTimer().runOnceAfter(() -> {
-                entity.setViewWithBBox(new EntityView(new Rectangle(Main.TILE_SIZE , Main.TILE_SIZE, Color.LIGHTGREEN)));
+                entity.setViewWithBBox(view);
             }, Duration.seconds(0.3));
             return true;
         }
