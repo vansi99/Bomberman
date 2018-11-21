@@ -33,8 +33,8 @@ public class Main extends GameApplication {
 
     @Override
     protected void initSettings(GameSettings settings) {
-        settings.setWidth(15 * TILE_SIZE);
-        settings.setHeight(11 * TILE_SIZE);
+        settings.setWidth(17 * TILE_SIZE);
+        settings.setHeight(13 * TILE_SIZE);
         settings.setTitle("BombermanApp");
         settings.setVersion("0.1");
         settings.setIntroEnabled(false);

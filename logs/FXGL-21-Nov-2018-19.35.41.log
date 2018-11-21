@@ -1,0 +1,192 @@
+19:35:17.516 [JavaFX Application Thread] DEBUG GameApplication      - Logger initialized
+19:35:17.523 [JavaFX Application Thread] DEBUG MainWindow           - Creating a JavaFX scene
+19:35:17.661 [JavaFX Application Thread] DEBUG MainWindow           - Target settings size: 680.0 x 520.0
+19:35:17.661 [JavaFX Application Thread] DEBUG MainWindow           - Scaled scene size:    680.0 x 520.0
+19:35:17.661 [JavaFX Application Thread] DEBUG MainWindow           - Scaled ratio: (1.0, 1.0)
+19:35:17.669 [JavaFX Application Thread] DEBUG GameApplication      - Starting FXGL
+19:35:17.675 [JavaFX Application Thread] INFO  FXGL                 - FXGL-0.5.3 on DESKTOP
+19:35:17.676 [JavaFX Application Thread] INFO  FXGL                 - Source code and latest versions at: https://github.com/AlmasB/FXGL
+19:35:17.676 [JavaFX Application Thread] INFO  FXGL                 -              Join the FXGL chat at: https://gitter.im/AlmasB/FXGL
+19:35:17.689 [JavaFX Application Thread] DEBUG FS                   - Loaded DesktopFSService
+19:35:17.690 [JavaFX Application Thread] DEBUG FXGL                 - Loading FXGL system data
+19:35:17.704 [JavaFX Application Thread] DEBUG DesktopFSService     - Reading from: system\fxgl.bundle
+19:35:17.720 [JavaFX Application Thread] DEBUG Bundle               - Logging bundle: FXGL
+19:35:17.721 [JavaFX Application Thread] DEBUG Bundle               - FXGL.offline.timer.version.check=2018-11-21T10:17:16.102
+19:35:17.777 [JavaFX Application Thread] DEBUG GameApplication      - FXGL started
+19:35:17.778 [JavaFX Application Thread] DEBUG GameApplication      - Logging game settings
+Title: BombermanApp
+Version: 0.1
+Width: 680
+Height: 520
+Fullscreen: false
+Intro: false
+Menus: false
+Profiling: false
+Single step:false
+App Mode: DEVELOPER
+Menu Key: ESCAPE
+Stage Style: DECORATED
+Scene Factory: class com.almasb.fxgl.scene.SceneFactory
+Dialog Factory: class com.almasb.fxgl.ui.FXGLDialogFactory
+UI Factory: class com.almasb.fxgl.ui.FXGLUIFactory
+Notification Service: class com.almasb.fxgl.gameplay.notification.XboxNotificationView
+Exception Handler: class com.almasb.fxgl.app.FXGLExceptionHandler
+19:35:17.779 [JavaFX Application Thread] DEBUG GameApplication      - Configuring GameApplication
+19:35:17.780 [JavaFX Application Thread] DEBUG GameApplication      - Initializing state machine and application states
+19:35:17.802 [JavaFX Application Thread] DEBUG AssetLoader          - Loading from disk: /assets/ui/cursors/fxgl_default.png
+19:35:17.838 [JavaFX Application Thread] DEBUG AssetLoader          - Loading from disk: /assets/ui/cursors/fxgl_default.png
+19:35:17.870 [JavaFX Application Thread] DEBUG FXGLAssets           - Loading FXGLAssets
+19:35:17.916 [JavaFX Application Thread] DEBUG AssetLoader          - Loading from disk: /assets/ui/fonts/VarelaRound-Regular.ttf
+19:35:18.113 [JavaFX Application Thread] DEBUG AssetLoader          - Loading from disk: /assets/ui/fonts/lucida_console.ttf
+19:35:18.136 [JavaFX Application Thread] DEBUG AssetLoader          - Loading from disk: /assets/ui/fonts/Courier-Prime.ttf
+19:35:18.212 [JavaFX Application Thread] DEBUG AssetLoader          - Loading from disk: /assets/ui/fonts/Abel-Regular.ttf
+19:35:18.236 [JavaFX Application Thread] DEBUG AssetLoader          - Loading from disk: /assets/ui/css/fxgl_dark.css
+19:35:18.310 [JavaFX Application Thread] DEBUG AssetLoader          - Loading from disk: /assets/ui/cursors/fxgl_default.png
+19:35:18.457 [JavaFX Application Thread] DEBUG AssetLoader          - Loading from disk: /assets/ui/cursors/fxgl_default.png
+19:35:18.499 [JavaFX Application Thread] DEBUG GameScene            - Game scene initialized: 680x520
+19:35:18.506 [JavaFX Application Thread] DEBUG GameWorld            - Game world initialized
+19:35:18.599 [JavaFX Application Thread] DEBUG PhysicsWorld         - Physics world initialized: appHeight=520, physics.ppm=50.0
+19:35:18.629 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Pause - Esc
+19:35:18.652 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+19:35:18.739 [JavaFX Application Thread] DEBUG AppStateMachine      - StartupState -> StartupState
+19:35:18.766 [JavaFX Application Thread] INFO  GameApplication      - Game configuration took:  0.983 sec
+19:35:18.771 [JavaFX Application Thread] DEBUG AssetLoader          - Loading from disk: /assets/textures/fxgl_icon.png
+19:35:18.800 [JavaFX Application Thread] DEBUG MainWindow           - Opening main window
+19:35:19.159 [JavaFX Application Thread] DEBUG MainWindow           - Window border size: (6.0, 29.0)
+19:35:19.159 [JavaFX Application Thread] DEBUG MainWindow           - Scaled size: 680.0 x 520.0
+19:35:19.160 [JavaFX Application Thread] DEBUG MainWindow           - Scaled ratio: (1.0, 1.0)
+19:35:19.160 [JavaFX Application Thread] DEBUG MainWindow           - Scene size: 680.0 x 520.0
+19:35:19.160 [JavaFX Application Thread] DEBUG MainWindow           - Stage size: 686.0 x 549.0
+19:35:19.160 [JavaFX Application Thread] DEBUG GameApplication      - Running preInit()
+19:35:19.163 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Screenshot - P
+19:35:19.164 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Dev Options - CTRL+0
+19:35:19.166 [JavaFX Application Thread] DEBUG Input                - Registered new binding: System info dump - CTRL+9
+19:35:19.166 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Restart - CTRL+R
+19:35:19.167 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Move Up - W
+19:35:19.167 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Move Left - A
+19:35:19.167 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Move Down - S
+19:35:19.168 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Move Right - D
+19:35:19.169 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Place Bomb - F
+19:35:19.219 [JavaFX Application Thread] DEBUG GameApplication      - Starting main loop
+19:35:19.220 [JavaFX Application Thread] DEBUG StartupState         - STARTUP
+19:35:19.220 [JavaFX Application Thread] DEBUG GameApplication      - Starting new game
+19:35:19.220 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+19:35:19.228 [JavaFX Application Thread] DEBUG AppStateMachine      - StartupState -> LoadingState
+19:35:19.237 [FXGL Background Thread 1 ] DEBUG InitAppTask          - Clearing previous game
+19:35:19.237 [FXGL Background Thread 1 ] DEBUG GameWorld            - Clearing game world
+19:35:19.237 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Clearing physics world
+19:35:19.238 [FXGL Background Thread 1 ] DEBUG GameScene            - Clearing game scene
+19:35:19.239 [FXGL Background Thread 1 ] DEBUG InitAppTask          - Initializing Game
+19:35:19.279 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from disk: /assets/text/levels/0.txt
+19:35:19.292 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from disk: /assets/textures/Wall/editwall2.png
+19:35:19.348 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.349 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.349 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.351 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.352 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.353 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.353 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.354 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.355 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.356 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.357 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.358 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.359 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.359 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.361 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.361 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.362 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.374 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.375 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.377 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.378 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.379 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.380 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.381 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.381 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.383 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.384 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.385 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.392 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.393 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.394 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.396 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.398 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.399 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.401 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.402 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.402 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.403 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.404 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.410 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.411 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.412 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.412 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.413 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.414 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.415 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.417 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.418 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.419 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.419 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.427 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.427 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.428 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.429 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.430 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.431 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.433 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.433 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.436 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.438 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.438 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.444 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.445 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.447 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.450 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.451 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.451 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.452 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.453 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.455 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.455 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.456 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.462 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.462 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.463 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.463 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.464 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.465 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.466 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.466 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.467 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.468 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.468 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.468 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.469 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.469 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.469 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.470 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.470 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.470 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Wall/editwall2.png
+19:35:19.471 [FXGL Background Thread 1 ] DEBUG GameWorld            - Clearing removable entities
+19:35:19.471 [FXGL Background Thread 1 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.Level@6af3d3c1
+19:35:19.473 [FXGL Background Thread 1 ] DEBUG GameScene            - Creating render group for layer: DEFAULT(100000)
+19:35:19.477 [FXGL Background Thread 1 ] DEBUG GameScene            - Creating render group for layer: BACKGROUND(1000)
+19:35:19.486 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from disk: /assets/textures/Bomberman/down.png
+19:35:19.489 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from cache: /assets/textures/Bomberman/down.png
+19:35:19.489 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from disk: /assets/textures/Bomberman/up.png
+19:35:19.489 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from disk: /assets/textures/Bomberman/left.png
+19:35:19.490 [FXGL Background Thread 1 ] DEBUG AssetLoader          - Loading from disk: /assets/textures/Bomberman/right.png
+19:35:19.505 [FXGL Background Thread 1 ] DEBUG InitAppTask          - Initializing Physics
+19:35:19.505 [FXGL Background Thread 1 ] DEBUG InitAppTask          - Initializing UI
+19:35:19.505 [FXGL Background Thread 1 ] DEBUG InitAppTask          - Initialization Complete
+19:35:19.505 [FXGL Background Thread 1 ] INFO  InitAppTask          - Game initialization took: 0.269 sec
+19:35:19.514 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+19:35:19.563 [JavaFX Application Thread] DEBUG AppStateMachine      - LoadingState -> PlayState
+19:35:41.835 [JavaFX Application Thread] DEBUG GameApplication      - Exiting game application
+19:35:41.837 [JavaFX Application Thread] DEBUG GameApplication      - Shutting down background threads
+19:35:41.839 [JavaFX Application Thread] DEBUG GameApplication      - Exiting FXGL
+19:35:41.839 [JavaFX Application Thread] DEBUG FXGL                 - Saving FXGL system data
+19:35:41.848 [JavaFX Application Thread] DEBUG DesktopFSService     - Writing to: system\fxgl.bundle
+19:35:41.853 [JavaFX Application Thread] DEBUG GameApplication      - Closing logger and exiting JavaFX
