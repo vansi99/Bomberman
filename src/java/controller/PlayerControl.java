@@ -58,7 +58,6 @@ public class PlayerControl extends Component {
             bomb.getComponent(BombControl.class).explode(x,y);
             bombsPlaced--;
         }, Duration.seconds(2));
-
     }
 
 

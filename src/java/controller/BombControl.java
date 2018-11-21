@@ -37,6 +37,7 @@ public class BombControl extends Component {
     }
 
     public boolean removeBrick(Entity entity, int x, int y)  {
+        Texture view = texture("Grass/grasspecies2.png");
         if (entity.isType(BombermanType.WALL)) {
             return false;
         } else if(entity.isType(BombermanType.BRICK) ){
@@ -47,18 +48,23 @@ public class BombControl extends Component {
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setType(BombermanType.GRASS);
                 flame.getComponent(FlameControl.class).burn();
-                entity.setViewWithBBox(new EntityView(new Rectangle(Main.TILE_SIZE , Main.TILE_SIZE, Color.LIGHTGREEN)));
+                entity.setViewWithBBox(view);
                 entity.setRenderLayer(RenderLayer.BACKGROUND);
-            }, Duration.seconds(0.3));
+            }, Duration.seconds(0.7));
 
                 return false;
             }
-        else if(entity.isType(BombermanType.GRASS)){
-            Texture view = texture("Grass/grasspecies2.png");
+        else if(entity.isType(BombermanType.GRASS) && x == this.xCenter && y == this.yCenter){
+            entity.setViewWithBBox(new Rectangle(Main.TILE_SIZE, Main.TILE_SIZE, Color.YELLOW.saturate()));
+            FXGL.getMasterTimer().runOnceAfter(() -> {
+                entity.setViewWithBBox(view);
+            }, Duration.seconds(0.7));
+            return true;
+        } else if(entity.isType(BombermanType.GRASS) ){
             entity.setViewWithBBox(new Rectangle(Main.TILE_SIZE, Main.TILE_SIZE, Color.RED.saturate()));
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setViewWithBBox(view);
-            }, Duration.seconds(0.3));
+            }, Duration.seconds(0.7));
             return true;
         }
         return false;
@@ -93,6 +99,8 @@ public class BombControl extends Component {
 
     public void explode(int xCenter, int yCenter) {
         BoundingBoxComponent bbox = getEntity().getBoundingBoxComponent();
+        this.xCenter = xCenter;
+        this.yCenter = yCenter;
 
         List<Entity> entitiesHeight = FXGL.getApp()
                 .getGameWorld()
@@ -107,6 +115,13 @@ public class BombControl extends Component {
                 .stream()
                 .filter(e -> e.isType(BombermanType.BRICK) || e.isType(BombermanType.WALL) || e.isType(BombermanType.GRASS))
                 .collect(Collectors.toList());
+        List<Entity> entityCenter = FXGL.getApp()
+                            .getGameWorld()
+                            .getEntitiesByType(BombermanType.GRASS)
+                            .stream()
+                            .filter(e -> e.getPositionComponent().getGridX(Main.TILE_SIZE) == xCenter && e.getPositionComponent().getGridY(Main.TILE_SIZE) == yCenter)
+                            .collect(Collectors.toList());
+        removeBrick(entityCenter.get(0),xCenter,yCenter);
         excRemove(entitiesHeight, xCenter, yCenter, false, true);
         excRemove(entitiesWidth, xCenter, yCenter, true, false);
         getEntity().removeFromWorld();
