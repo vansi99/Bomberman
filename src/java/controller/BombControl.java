@@ -40,9 +40,10 @@ public class BombControl extends Component {
             Entity flame = FXGL.getApp()
                     .getGameWorld()
                     .spawn("Flame", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
+
             FXGL.getMasterTimer().runOnceAfter(() -> {
+                entity.setType(BombermanType.GRASS);s
                 flame.getComponent(FlameControl.class).burn();
-                entity.setType(BombermanType.GRASS);
                 entity.setViewWithBBox(new EntityView(new Rectangle(Main.TILE_SIZE , Main.TILE_SIZE, Color.LIGHTGREEN)));
                 entity.setRenderLayer(RenderLayer.BACKGROUND);
             }, Duration.seconds(0.3));

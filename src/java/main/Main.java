@@ -46,7 +46,6 @@ public class Main extends GameApplication {
     @Override
     protected void initInput(){
         getInput().addAction(new UserAction("Move Up") {
-
             @Override
             protected void onAction() { getPlayerControl().up();}
         }, KeyCode.W);
