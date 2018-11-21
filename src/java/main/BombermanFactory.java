@@ -41,7 +41,7 @@ public class BombermanFactory implements TextEntityFactory {
         return Entities.builder()
                 .from(data)
                 .type(BombermanType.WALL)
-                .bbox(new HitBox("WALL", new Point2D(0, 0), BoundingShape.box(40, 20)))
+                .bbox(new HitBox("WALL", new Point2D(0, 0), BoundingShape.box(40, 40)))
                 .viewFromNode(view)
                 .build();
     }
@@ -53,7 +53,7 @@ public class BombermanFactory implements TextEntityFactory {
         return Entities.builder()
                 .type(BombermanType.BRICK)
                 .from(data)
-                .bbox(new HitBox("BRICK", new Point2D(0,0), BoundingShape.box(40,20)))
+                .bbox(new HitBox("BRICK", new Point2D(0,0), BoundingShape.box(40,40)))
                 .viewFromNode(view)
                 .build();
     }
@@ -66,7 +66,7 @@ public class BombermanFactory implements TextEntityFactory {
                 .from(data)
                 .at(40,40)
                 .type(BombermanType.PLAYER)
-                .bbox(new HitBox("PLAYER_BODY", new Point2D(2, 2), BoundingShape.box(35,30)))
+                .bbox(new HitBox("PLAYER_BODY", new Point2D(2, 2), BoundingShape.box(20,30)))
                 .viewFromNode(view)
                 .with(new CollidableComponent(true))
                 .with(new PlayerControl())
@@ -75,10 +75,13 @@ public class BombermanFactory implements TextEntityFactory {
 
     @Spawns("Bomb")
     public Entity newBomb(SpawnData data){
+        Texture view = texture("Bomb/bomb1.png");
+
         return Entities.builder()
                 .type(BombermanType.BOMB)
                 .from(data)
-                .viewFromNodeWithBBox(new Circle(Main.TILE_SIZE/2, Color.BLACK))
+                .bbox(new HitBox("BOMB", new Point2D(0, 0), BoundingShape.box(40, 40)))
+                .viewFromNode(view)
                 .with(new BombControl(data.get("radius")))
                 .build();
     }
