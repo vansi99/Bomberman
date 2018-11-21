@@ -14,6 +14,8 @@ import com.almasb.fxgl.settings.GameSettings;
 import controller.PlayerControl;
 import javafx.scene.input.KeyCode;
 
+import main.BombermanFactory;
+import main.BombermanType;
 
 public class Main extends GameApplication {
 

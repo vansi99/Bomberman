@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-
 import static com.almasb.fxgl.app.DSLKt.texture;
 
 
@@ -29,7 +28,6 @@ public class BombermanFactory implements TextEntityFactory {
                     .renderLayer(RenderLayer.BACKGROUND)
                     .build();
         }
-
 
     @SpawnSymbol('w')
     public Entity newWall (SpawnData data){
