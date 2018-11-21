@@ -35,13 +35,6 @@ public class PlayerControl extends Component {
     public void onUpdate( double tpf){
         speed = tpf * 60;
 
-        if (position.getX() < 0) {
-            position.setX(Main.TILE_SIZE * 11 - bbox.getWidth() - 5);
-        }
-
-        if (bbox.getMaxXWorld() >  Main.TILE_SIZE * 15) {
-            position.setX(0);
-        }
     }
 
     public void increaseMaxBombs() {

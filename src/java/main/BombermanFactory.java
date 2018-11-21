@@ -66,7 +66,7 @@ public class BombermanFactory implements TextEntityFactory {
                 .from(data)
                 .at(40,40)
                 .type(BombermanType.PLAYER)
-                .bbox(new HitBox("PLAYER_BODY", new Point2D(40, 40), BoundingShape.box(20,30)))
+                .bbox(new HitBox("PLAYER_BODY", new Point2D(2, 2), BoundingShape.box(35,30)))
                 .viewFromNode(view)
                 .with(new CollidableComponent(true))
                 .with(new PlayerControl())
