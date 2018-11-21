@@ -2,6 +2,7 @@ package controller;
 
 import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.entity.components.BoundingBoxComponent;
 import com.almasb.fxgl.entity.components.PositionComponent;
@@ -9,6 +10,7 @@ import com.almasb.fxgl.entity.components.ViewComponent;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
+import javafx.util.Duration;
 import main.BombermanType;
 import main.Main;
 
@@ -47,9 +49,24 @@ public class PlayerControl extends Component {
     }
 
     public void placeBomb() {
-        if(bombsPlaced == maxBombs){
-            return;
-        }
+//        if(bombsPlaced == maxBombs){
+//            return;
+//        }
+
+        bombsPlaced++;
+
+        int x = position.getGridX(Main.TILE_SIZE);
+        int y = position.getGridY(Main.TILE_SIZE);
+
+        Entity bomb = FXGL.getApp()
+                .getGameWorld()
+                .spawn("Bomb", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE).put("radius", Main.TILE_SIZE / 10));
+        FXGL.getMasterTimer().runOnceAfter(() -> {
+            bomb.getComponent(BombControl.class).explode(x,y);
+            bricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BRICK);
+            bombsPlaced--;
+        }, Duration.seconds(2));
+
     }
 
 
@@ -80,6 +97,16 @@ public class PlayerControl extends Component {
 
 
     private List<Entity> walls;
+    private List<Entity> bricks;
+
+    private boolean canMove(List<Entity> entities){
+        for (int j = 0; j < entities.size(); j++) {
+            if (entities.get(j).getBoundingBoxComponent().isCollidingWith(bbox)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void move(double dx, double dy) {
         if (!getEntity().isActive())
@@ -89,9 +116,12 @@ public class PlayerControl extends Component {
             walls = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.WALL);
         }
 
+        if(bricks == null){
+            bricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BRICK);
+        }
+
         double mag = Math.sqrt(dx * dx + dy * dy);
         long length = Math.round(mag);
-
 
         double unitX = dx / mag;
         double unitY = dy / mag;
@@ -99,16 +129,11 @@ public class PlayerControl extends Component {
         for (long i = 0; i < length; i++) {
             position.translate(unitX,unitY);
 
-            boolean collision = false;
+            boolean collisionBricks = canMove(bricks);
+            boolean collisionWalls = canMove(walls);
 
-            for (int j = 0; j < walls.size(); j++) {
-                if (walls.get(j).getBoundingBoxComponent().isCollidingWith(bbox)) {
-                    collision = true;
-                    break;
-                }
-            }
 
-            if (collision) {
+            if (collisionBricks || collisionWalls) {
                 position.translate(-unitX, -unitY);
                 break;
             }
