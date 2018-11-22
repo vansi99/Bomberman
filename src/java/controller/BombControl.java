@@ -19,6 +19,7 @@ import main.Main;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.almasb.fxgl.app.DSLKt.play;
 import static com.almasb.fxgl.app.DSLKt.texture;
 
 
@@ -102,20 +103,21 @@ public class BombControl extends Component {
     }
 
     public void explode(int xCenter, int yCenter) {
+        play("explosion.wav");
         BoundingBoxComponent bbox = getEntity().getBoundingBoxComponent();
         this.xCenter = xCenter;
         this.yCenter = yCenter;
 
         List<Entity> entitiesHeight = FXGL.getApp()
                 .getGameWorld()
-                .getEntitiesInRange(bbox.range(0, Main.TILE_SIZE * 3))
+                .getEntitiesInRange(bbox.range(0, Main.TILE_SIZE * 2))
                 .stream()
                 .filter(e -> e.isType(BombermanType.BRICK) || e.isType(BombermanType.WALL) || e.isType(BombermanType.GRASS))
                 .collect(Collectors.toList());
 
         List<Entity> entitiesWidth = FXGL.getApp()
                 .getGameWorld()
-                .getEntitiesInRange(bbox.range(Main.TILE_SIZE * 3, 0))
+                .getEntitiesInRange(bbox.range(Main.TILE_SIZE * 2, 0))
                 .stream()
                 .filter(e -> e.isType(BombermanType.BRICK) || e.isType(BombermanType.WALL) || e.isType(BombermanType.GRASS))
                 .collect(Collectors.toList());
