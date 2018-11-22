@@ -88,10 +88,13 @@ public class BombermanFactory implements TextEntityFactory {
 
     @Spawns("Flame")
     public Entity newFlame(SpawnData data){
+        Texture view = texture("Flame/bombbang.png");
+
         return Entities.builder()
                 .type(BombermanType.FLAME)
                 .from(data)
-                .viewFromNodeWithBBox(new Rectangle(Main.TILE_SIZE, Main.TILE_SIZE, Color.RED.saturate()))
+                .bbox(new HitBox("FLAME", new Point2D(0, 0), BoundingShape.box(145, 145)))
+                .viewFromNode(view)
                 .with(new FlameControl())
                 .build();
     }

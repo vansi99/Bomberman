@@ -38,9 +38,12 @@ public class BombControl extends Component {
 
     public boolean removeBrick(Entity entity, int x, int y)  {
         Texture view = texture("Grass/grasspecies2.png");
+        Texture flameCenterView = texture("Flame/flame_center.png");
+        Texture flameHitView = texture("Flame/flame_down.png");
         if (entity.isType(BombermanType.WALL)) {
             return false;
-        } else if(entity.isType(BombermanType.BRICK) ){
+        }
+        else if(entity.isType(BombermanType.BRICK) ){
             Entity flame = FXGL.getApp()
                     .getGameWorld()
                     .spawn("Flame", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
@@ -55,13 +58,14 @@ public class BombControl extends Component {
                 return false;
             }
         else if(entity.isType(BombermanType.GRASS) && x == this.xCenter && y == this.yCenter){
-            entity.setViewWithBBox(new Rectangle(Main.TILE_SIZE, Main.TILE_SIZE, Color.YELLOW.saturate()));
+            entity.setViewWithBBox(flameCenterView);
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setViewWithBBox(view);
             }, Duration.seconds(0.7));
             return true;
-        } else if(entity.isType(BombermanType.GRASS) ){
-            entity.setViewWithBBox(new Rectangle(Main.TILE_SIZE, Main.TILE_SIZE, Color.RED.saturate()));
+        }
+        else if(entity.isType(BombermanType.GRASS) ){
+            entity.setViewWithBBox(flameHitView);
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setViewWithBBox(view);
             }, Duration.seconds(0.7));
