@@ -16,6 +16,7 @@ import javafx.scene.shape.Rectangle;
 
 import javax.xml.soap.Text;
 
+import static com.almasb.fxgl.app.DSLKt.play;
 import static com.almasb.fxgl.app.DSLKt.texture;
 
 
@@ -88,6 +89,7 @@ public class BombermanFactory implements TextEntityFactory {
 
     @Spawns("Flame")
     public Entity newFlame(SpawnData data){
+        play("bomb_bang.wav");
         Texture view = texture("Flame/bombbang.png");
 
         return Entities.builder()
