@@ -36,16 +36,14 @@ public class MoveControl extends Component {
     @Override
     public void onUpdate(double tpf) {
         if (timer.elapsed(Duration.seconds(2))) {
-
             getEntity().getComponent(MoveControl.class).setMoveDirection(FXGLMath.random(MoveDirection.values()).get());
             timer.capture();
         }
 
-        speed = tpf * 20;
+        speed = tpf * 60;
         if(hasPlayer()){
             followPlayer();
         }else {
-
             switch (moveDir) {
                 case UP:
                     up();

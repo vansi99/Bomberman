@@ -103,6 +103,7 @@ public class Main extends GameApplication {
         getGameWorld().setLevel(level);
         getGameWorld().spawn("player");
         getGameWorld().spawn("Enemy");
+        getGameWorld().spawn("Oneal");
 
         grid = new AStarGrid(Main.TILE_SIZE*11, Main.TILE_SIZE*11);
 

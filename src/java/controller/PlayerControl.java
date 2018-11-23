@@ -119,7 +119,6 @@ public class PlayerControl extends Component {
             walls = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.WALL);
         }
 
-
         bricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BRICK);
 
         double mag = Math.sqrt(dx * dx + dy * dy);

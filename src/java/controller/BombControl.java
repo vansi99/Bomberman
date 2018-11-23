@@ -39,7 +39,7 @@ public class BombControl extends Component {
         Texture view = texture("Grass/grasspecies2.png");
         Texture flameCenterView = texture("Flame/flame_center.png");
         Texture flameDownView = texture("Flame/flame_down1.png");
-        Texture flameHitView = texture("Flame/flame_down2git.png");
+        Texture flameDownTailView = texture("Flame/flame_down2.png");
         if (entity.isType(BombermanType.WALL)) {
             return false;
         } else if (entity.isType(BombermanType.BRICK)) {
@@ -52,26 +52,20 @@ public class BombControl extends Component {
                 flame.getComponent(FlameControl.class).burn();
                 entity.setViewWithBBox(view);
                 entity.setRenderLayer(RenderLayer.BACKGROUND);
-            }, Duration.seconds(0.7));
+                }, Duration.seconds(0.7));
 
             return false;
-        } else if ((entity.isType(BombermanType.FLAME) || entity.isType(BombermanType.GRASS) || entity.isType(BombermanType.BOMB)) && x == this.xCenter && y == this.yCenter) {
-            entity.setViewWithBBox(flameCenterView);
-            FXGL.getMasterTimer().runOnceAfter(() -> {
-                entity.setViewWithBBox(view);
-            }, Duration.seconds(0.7));
-            return true;
         }
-        else if(entity.isType(BombermanType.GRASS) ){
+        else if((entity.isType(BombermanType.FLAME) || entity.isType(BombermanType.GRASS) || entity.isType(BombermanType.BOMB) )){
             entity.setViewWithBBox(flameDownView);
             if (!entity.isType(BombermanType.BOMB)) {
                 FXGL.getMasterTimer().runOnceAfter(() -> {
                     entity.setViewWithBBox(view);
-                }, Duration.seconds(0.5));
+                }, Duration.seconds(0.7));
                 return true;
             }
         } else if (entity.isType(BombermanType.GRASS)) {
-            entity.setViewWithBBox(flameHitView);
+            entity.setViewWithBBox(flameDownTailView);
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setViewWithBBox(view);
             }, Duration.seconds(0.7));
@@ -99,7 +93,6 @@ public class BombControl extends Component {
             Entity entity = entities.get(i);
             x = entity.getPositionComponent().getGridX(Main.TILE_SIZE);
             y = entity.getPositionComponent().getGridY(Main.TILE_SIZE);
-            System.out.println(x + " " + y);
 
             if ((y < yCenter && height) || (x < xCenter && width)) {
                 removed = removeBrick(entity, x, y);
