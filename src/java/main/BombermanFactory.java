@@ -1,6 +1,6 @@
 package main;
 
-import ai.RandomMoveAction;
+
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.entity.view.EntityView;
 import com.almasb.fxgl.entity.*;
@@ -18,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 
 import javax.xml.soap.Text;
 
+import static com.almasb.fxgl.app.DSLKt.play;
 import static com.almasb.fxgl.app.DSLKt.texture;
 
 
@@ -68,7 +69,7 @@ public class BombermanFactory implements TextEntityFactory {
                 .from(data)
                 .at(40,40)
                 .type(BombermanType.PLAYER)
-                .bbox(new HitBox("PLAYER_BODY", new Point2D(2, 2), BoundingShape.box(20,30)))
+                .bbox(new HitBox("PLAYER_BODY", new Point2D(2, 2), BoundingShape.box(30,30)))
                 .viewFromNode(view)
                 .with(new CollidableComponent(true))
                 .with(new PlayerControl())
@@ -77,6 +78,7 @@ public class BombermanFactory implements TextEntityFactory {
 
     @Spawns("Bomb")
     public Entity newBomb(SpawnData data){
+        play("newbomb.wav");
         Texture view = texture("Bomb/bomb1.png");
 
         return Entities.builder()
@@ -90,10 +92,14 @@ public class BombermanFactory implements TextEntityFactory {
 
     @Spawns("Flame")
     public Entity newFlame(SpawnData data){
+//        play("bomb_bang.wav");
+//        Texture view = texture("Flame/bombbang.png");
+
         return Entities.builder()
                 .type(BombermanType.FLAME)
                 .from(data)
-                .viewFromNodeWithBBox(new Rectangle(Main.TILE_SIZE, Main.TILE_SIZE, Color.RED.saturate()))
+                .bbox(new HitBox("FLAME", new Point2D(0, 0), BoundingShape.box(40, 40)))
+//                .viewFromNode(view)
                 .with(new FlameControl())
                 .build();
     }

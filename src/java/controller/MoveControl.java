@@ -10,15 +10,16 @@ import com.almasb.fxgl.entity.components.PositionComponent;
 import com.almasb.fxgl.time.LocalTimer;
 import javafx.util.Duration;
 import main.BombermanType;
+import main.Main;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MoveControl extends Component {
     private PositionComponent position;
     private BoundingBoxComponent bbox;
     private LocalTimer timer = FXGL.newLocalTimer();
-    public boolean going = false;
-
+    private Entity player;
 
     private MoveDirection moveDir;
 
@@ -35,32 +36,34 @@ public class MoveControl extends Component {
     @Override
     public void onUpdate(double tpf) {
         if (timer.elapsed(Duration.seconds(2))) {
-            // 2. perform logic
-            going = !going;
+
             getEntity().getComponent(MoveControl.class).setMoveDirection(FXGLMath.random(MoveDirection.values()).get());
             timer.capture();
         }
 
-        speed = tpf * 30;
+        speed = tpf * 20;
+        if(hasPlayer()){
+            followPlayer();
+        }else {
 
-        switch (moveDir) {
-            case UP:
-                up();
-                break;
+            switch (moveDir) {
+                case UP:
+                    up();
+                    break;
 
-            case DOWN:
-                down();
-                break;
+                case DOWN:
+                    down();
+                    break;
 
-            case LEFT:
-                left();
-                break;
+                case LEFT:
+                    left();
+                    break;
 
-            case RIGHT:
-                right();
-                break;
+                case RIGHT:
+                    right();
+                    break;
+            }
         }
-
     }
 
     public void up() {
@@ -129,4 +132,29 @@ public class MoveControl extends Component {
             }
         }
     }
+
+    public boolean hasPlayer(){
+        List<Entity> playerInRange = FXGL.getApp()
+                .getGameWorld()
+                .getEntitiesInRange(bbox.range(Main.TILE_SIZE*8, Main.TILE_SIZE*8))
+                .stream()
+                .filter(e -> e.isType(BombermanType.PLAYER))
+                .collect(Collectors.toList());
+        if(playerInRange.isEmpty()) {
+            player = null;
+            return false;
+        }
+        else {
+            player = playerInRange.get(0);
+            return true;
+        }
+    }
+
+    public void followPlayer() {
+        double xPlayer = player.getX();
+        double yPlayer = player.getY();
+        if(position.getX() < xPlayer && position.getY() == yPlayer) left();
+
+    }
+
 }

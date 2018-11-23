@@ -17,6 +17,8 @@ import javafx.scene.input.KeyCode;
 import main.BombermanFactory;
 import main.BombermanType;
 
+import static com.almasb.fxgl.app.DSLKt.loopBGM;
+
 public class Main extends GameApplication {
 
     public static final int TILE_SIZE = 40;
@@ -82,6 +84,13 @@ public class Main extends GameApplication {
     }
 
     @Override
+    protected  void preInit(){
+        getAudioPlayer().setGlobalMusicVolume(0.2);
+        getAudioPlayer().setGlobalSoundVolume(0.2);
+        loopBGM("menu.wav");
+    }
+
+    @Override
     protected void initGame(){
         BombermanFactory factory = new BombermanFactory();
 
@@ -107,8 +116,6 @@ public class Main extends GameApplication {
                     grid.setNodeState(x, y, NodeState.NOT_WALKABLE);
                 });
     }
-
-
 
     @Override
     protected void initPhysics(){

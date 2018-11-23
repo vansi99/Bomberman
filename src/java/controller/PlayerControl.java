@@ -35,7 +35,7 @@ public class PlayerControl extends Component {
 
     @Override
     public void onUpdate( double tpf){
-        speed = tpf * 50;
+        speed = tpf * 20;
 
     }
 
@@ -60,6 +60,7 @@ public class PlayerControl extends Component {
             bomb.getComponent(BombControl.class).explode(x,y);
             bombsPlaced--;
         }, Duration.seconds(2));
+
     }
 
 
