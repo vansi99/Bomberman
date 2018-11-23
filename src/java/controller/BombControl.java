@@ -35,17 +35,15 @@ public class BombControl extends Component {
     public void onUpdate(double tpf) {
     }
 
-    public boolean removeBrick(Entity entity, int x, int y) {
+    public boolean removeBrick(Entity entity, int x, int y, Texture texture) {
         Texture view = texture("Grass/grasspecies2.png");
-        Texture flameCenterView = texture("Flame/flame_center.png");
-        Texture flameDownView = texture("Flame/flame_down1.png");
-        Texture flameDownTailView = texture("Flame/flame_down2.png");
+
         if (entity.isType(BombermanType.WALL)) {
             return false;
         } else if (entity.isType(BombermanType.BRICK)) {
-            Entity flame = FXGL.getApp()
-                    .getGameWorld()
-                    .spawn("Flame", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
+                Entity flame = FXGL.getApp()
+                        .getGameWorld()
+                        .spawn("Flame", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
 
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setType(BombermanType.GRASS);
@@ -53,11 +51,11 @@ public class BombControl extends Component {
                 entity.setViewWithBBox(view);
                 entity.setRenderLayer(RenderLayer.BACKGROUND);
                 }, Duration.seconds(0.7));
-
+ ;
             return false;
         }
-        else if((entity.isType(BombermanType.FLAME) || entity.isType(BombermanType.GRASS) || entity.isType(BombermanType.BOMB) )){
-            entity.setViewWithBBox(flameDownView);
+        else if(x == xCenter && y == yCenter &&(entity.isType(BombermanType.FLAME) || entity.isType(BombermanType.FLAME) || entity.isType(BombermanType.BOMB) )){
+            entity.setViewWithBBox(texture);
             if (!entity.isType(BombermanType.BOMB)) {
                 FXGL.getMasterTimer().runOnceAfter(() -> {
                     entity.setViewWithBBox(view);
@@ -65,7 +63,7 @@ public class BombControl extends Component {
                 return true;
             }
         } else if (entity.isType(BombermanType.GRASS)) {
-            entity.setViewWithBBox(flameDownTailView);
+            entity.setViewWithBBox(texture);
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setViewWithBBox(view);
             }, Duration.seconds(0.7));
@@ -78,15 +76,25 @@ public class BombControl extends Component {
     public void excRemove(List<Entity> entities, int xCenter, int yCenter, boolean width, boolean height) {
         int x, y;
         boolean removed;
-        System.out.println(entities.size());
+
         for (int i = 0; i < entities.size(); i++) {
             Entity entity = entities.get(i);
             x = entity.getPositionComponent().getGridX(Main.TILE_SIZE);
             y = entity.getPositionComponent().getGridY(Main.TILE_SIZE);
 
-            if ((y > yCenter && height == true) || (x > xCenter && width)) {
-                removed = removeBrick(entity, x, y);
+            if (y > yCenter && height) {
+                Texture flameDownView = texture("Flame/flame_down1.png");
+                removed = removeBrick(entity, x, y, flameDownView);
                 if (!removed) break;
+
+            }
+            if(x > xCenter && width){
+                Texture flameRightView = texture("Flame/flame_right1.png");
+
+                removed = removeBrick(entity, x, y, flameRightView);
+
+                if (!removed)
+                    break;
             }
         }
         for (int i = entities.size() - 1; i >= 0; i--) {
@@ -94,9 +102,20 @@ public class BombControl extends Component {
             x = entity.getPositionComponent().getGridX(Main.TILE_SIZE);
             y = entity.getPositionComponent().getGridY(Main.TILE_SIZE);
 
-            if ((y < yCenter && height) || (x < xCenter && width)) {
-                removed = removeBrick(entity, x, y);
+            if (y < yCenter && height) {
+                Texture flameUpView = texture("Flame/flame_up1.png");
+
+                removed = removeBrick(entity, x, y, flameUpView);
+
                 if (!removed) break;
+            }
+            if(x < xCenter && width){
+                Texture flameLeftView = texture("Flame/flame_left1.png");
+
+                removed = removeBrick(entity, x, y, flameLeftView);
+
+                if (!removed)
+                    break;
             }
         }
         entities.clear();
@@ -128,8 +147,8 @@ public class BombControl extends Component {
                 .stream()
                 .filter(e -> e.getPositionComponent().getGridX(Main.TILE_SIZE) == xCenter && e.getPositionComponent().getGridY(Main.TILE_SIZE) == yCenter)
                 .collect(Collectors.toList());
-
-        removeBrick(entityCenter.get(0), xCenter, yCenter);
+        Texture flameCenterView = texture("Flame/flame_center.png");
+        removeBrick(entityCenter.get(0), xCenter, yCenter, flameCenterView);
 
         excRemove(entitiesHeight, xCenter, yCenter, false, true);
         excRemove(entitiesWidth, xCenter, yCenter, true, false);

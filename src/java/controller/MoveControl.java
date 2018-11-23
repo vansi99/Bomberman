@@ -35,7 +35,7 @@ public class MoveControl extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        if (timer.elapsed(Duration.seconds(2))) {
+        if (timer.elapsed(Duration.seconds(1.5))) {
             getEntity().getComponent(MoveControl.class).setMoveDirection(FXGLMath.random(MoveDirection.values()).get());
             timer.capture();
         }
@@ -134,7 +134,7 @@ public class MoveControl extends Component {
     public boolean hasPlayer(){
         List<Entity> playerInRange = FXGL.getApp()
                 .getGameWorld()
-                .getEntitiesInRange(bbox.range(Main.TILE_SIZE*8, Main.TILE_SIZE*8))
+                .getEntitiesInRange(bbox.range(Main.TILE_SIZE*3, Main.TILE_SIZE*3))
                 .stream()
                 .filter(e -> e.isType(BombermanType.PLAYER))
                 .collect(Collectors.toList());
