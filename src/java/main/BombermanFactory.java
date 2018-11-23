@@ -1,5 +1,6 @@
 package main;
 
+import ai.RandomMoveAction;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.entity.view.EntityView;
 import com.almasb.fxgl.entity.*;
@@ -8,6 +9,7 @@ import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.texture.Texture;
 import controller.BombControl;
 import controller.FlameControl;
+import controller.MoveControl;
 import controller.PlayerControl;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -94,6 +96,22 @@ public class BombermanFactory implements TextEntityFactory {
                 .viewFromNodeWithBBox(new Rectangle(Main.TILE_SIZE, Main.TILE_SIZE, Color.RED.saturate()))
                 .with(new FlameControl())
                 .build();
+    }
+
+    @Spawns("Enemy")
+    public Entity newEnemy(SpawnData data) {
+        Texture view = texture("Oneal/OnealDown.png");
+
+        Entity enemy = Entities.builder()
+                        .from(data)
+                        .type(BombermanType.ENEMY)
+                        .at(80,120)
+                        .bbox(new HitBox("ENEMY_BODY", new Point2D(2,2), BoundingShape.box(20,30)))
+                        .viewFromNode(view)
+                        .with(new CollidableComponent(true))
+                        .with(new MoveControl())
+                        .build();
+        return enemy;
     }
 
     @Override
