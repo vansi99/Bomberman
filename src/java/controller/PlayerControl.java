@@ -24,6 +24,8 @@ public class PlayerControl extends Component {
     private BoundingBoxComponent bbox;
     private ViewComponent view;
 
+    private MoveDirection moveDir = MoveDirection.UP;
+
     private double speed = 0;
 
     private Texture textureDown = FXGL.getAssetLoader().loadTexture("Bomberman/down.png");
@@ -33,7 +35,7 @@ public class PlayerControl extends Component {
 
     @Override
     public void onUpdate( double tpf){
-        speed = tpf * 50;
+        speed = tpf * 60;
 
     }
 
@@ -63,6 +65,7 @@ public class PlayerControl extends Component {
 
 
     public void up() {
+        moveDir = MoveDirection.UP;
 
         move(0, -5*speed);
 
@@ -70,12 +73,14 @@ public class PlayerControl extends Component {
     }
 
     public void down() {
+        moveDir = MoveDirection.DOWN;
 
         move(0, 5*speed);
         view.setView(textureDown);
     }
 
     public void left() {
+        moveDir = MoveDirection.LEFT;
 
         move(-5*speed, 0);
         view.setView(textureLeft);
@@ -83,6 +88,7 @@ public class PlayerControl extends Component {
 
 
     public void right() {
+        moveDir = MoveDirection.RIGHT;
 
         move(5*speed, 0);
         view.setView(textureRight);

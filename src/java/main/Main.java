@@ -33,6 +33,10 @@ public class Main extends GameApplication {
         return getPlayer().getComponent(PlayerControl.class);
     }
 
+    public AStarGrid getGrid() {
+        return grid;
+    }
+
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(17 * TILE_SIZE);
@@ -98,6 +102,7 @@ public class Main extends GameApplication {
 
         getGameWorld().setLevel(level);
         getGameWorld().spawn("player");
+        getGameWorld().spawn("Enemy");
 
         grid = new AStarGrid(Main.TILE_SIZE*11, Main.TILE_SIZE*11);
 

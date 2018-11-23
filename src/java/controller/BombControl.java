@@ -1,14 +1,12 @@
 package controller;
 
 import com.almasb.fxgl.app.FXGL;
-import com.almasb.fxgl.entity.Entities;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.RenderLayer;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.entity.components.BoundingBoxComponent;
 import com.almasb.fxgl.entity.components.PositionComponent;
-import com.almasb.fxgl.entity.view.EntityView;
 import com.almasb.fxgl.texture.Texture;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -37,14 +35,14 @@ public class BombControl extends Component {
     public void onUpdate(double tpf) {
     }
 
-    public boolean removeBrick(Entity entity, int x, int y)  {
+    public boolean removeBrick(Entity entity, int x, int y) {
         Texture view = texture("Grass/grasspecies2.png");
         Texture flameCenterView = texture("Flame/flame_center.png");
         Texture flameDownView = texture("Flame/flame_down.png");
+        Texture flameHitView = texture("Flame/flame_down1.png");
         if (entity.isType(BombermanType.WALL)) {
             return false;
-        }
-        else if(entity.isType(BombermanType.BRICK) ){
+        } else if (entity.isType(BombermanType.BRICK)) {
             Entity flame = FXGL.getApp()
                     .getGameWorld()
                     .spawn("Flame", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
@@ -56,9 +54,8 @@ public class BombControl extends Component {
                 entity.setRenderLayer(RenderLayer.BACKGROUND);
             }, Duration.seconds(0.7));
 
-                return false;
-            }
-        else if(entity.isType(BombermanType.GRASS) && x == this.xCenter && y == this.yCenter){
+            return false;
+        } else if ((entity.isType(BombermanType.FLAME) || entity.isType(BombermanType.GRASS) || entity.isType(BombermanType.BOMB)) && x == this.xCenter && y == this.yCenter) {
             entity.setViewWithBBox(flameCenterView);
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setViewWithBBox(view);
@@ -67,6 +64,14 @@ public class BombControl extends Component {
         }
         else if(entity.isType(BombermanType.GRASS) ){
             entity.setViewWithBBox(flameDownView);
+            if (!entity.isType(BombermanType.BOMB)) {
+                FXGL.getMasterTimer().runOnceAfter(() -> {
+                    entity.setViewWithBBox(view);
+                }, Duration.seconds(0.5));
+                return true;
+            }
+        } else if (entity.isType(BombermanType.GRASS)) {
+            entity.setViewWithBBox(flameHitView);
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setViewWithBBox(view);
             }, Duration.seconds(0.7));
@@ -79,20 +84,22 @@ public class BombControl extends Component {
     public void excRemove(List<Entity> entities, int xCenter, int yCenter, boolean width, boolean height) {
         int x, y;
         boolean removed;
+        System.out.println(entities.size());
         for (int i = 0; i < entities.size(); i++) {
             Entity entity = entities.get(i);
             x = entity.getPositionComponent().getGridX(Main.TILE_SIZE);
             y = entity.getPositionComponent().getGridY(Main.TILE_SIZE);
 
-            if ((y > yCenter && height) || (x > xCenter && width)) {
+            if ((y > yCenter && height == true) || (x > xCenter && width)) {
                 removed = removeBrick(entity, x, y);
                 if (!removed) break;
             }
         }
-        for (int i = entities.size() - 1; i >= 0; i--){
+        for (int i = entities.size() - 1; i >= 0; i--) {
             Entity entity = entities.get(i);
             x = entity.getPositionComponent().getGridX(Main.TILE_SIZE);
             y = entity.getPositionComponent().getGridY(Main.TILE_SIZE);
+            System.out.println(x + " " + y);
 
             if ((y < yCenter && height) || (x < xCenter && width)) {
                 removed = removeBrick(entity, x, y);
@@ -121,13 +128,16 @@ public class BombControl extends Component {
                 .stream()
                 .filter(e -> e.isType(BombermanType.BRICK) || e.isType(BombermanType.WALL) || e.isType(BombermanType.GRASS))
                 .collect(Collectors.toList());
+
         List<Entity> entityCenter = FXGL.getApp()
-                            .getGameWorld()
-                            .getEntitiesByType(BombermanType.GRASS)
-                            .stream()
-                            .filter(e -> e.getPositionComponent().getGridX(Main.TILE_SIZE) == xCenter && e.getPositionComponent().getGridY(Main.TILE_SIZE) == yCenter)
-                            .collect(Collectors.toList());
-        removeBrick(entityCenter.get(0),xCenter,yCenter);
+                .getGameWorld()
+                .getEntitiesByType(BombermanType.FLAME, BombermanType.GRASS, BombermanType.BOMB)
+                .stream()
+                .filter(e -> e.getPositionComponent().getGridX(Main.TILE_SIZE) == xCenter && e.getPositionComponent().getGridY(Main.TILE_SIZE) == yCenter)
+                .collect(Collectors.toList());
+
+        removeBrick(entityCenter.get(0), xCenter, yCenter);
+
         excRemove(entitiesHeight, xCenter, yCenter, false, true);
         excRemove(entitiesWidth, xCenter, yCenter, true, false);
         getEntity().removeFromWorld();
