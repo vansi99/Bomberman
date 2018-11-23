@@ -38,8 +38,8 @@ public class BombControl extends Component {
     public boolean removeBrick(Entity entity, int x, int y) {
         Texture view = texture("Grass/grasspecies2.png");
         Texture flameCenterView = texture("Flame/flame_center.png");
-        Texture flameDownView = texture("Flame/flame_down.png");
-        Texture flameHitView = texture("Flame/flame_down1.png");
+        Texture flameDownView = texture("Flame/flame_down1.png");
+        Texture flameHitView = texture("Flame/flame_down2.png");
         if (entity.isType(BombermanType.WALL)) {
             return false;
         } else if (entity.isType(BombermanType.BRICK)) {
