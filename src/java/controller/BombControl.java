@@ -55,8 +55,8 @@ public class BombControl extends Component {
             }, Duration.seconds(0.7));
 
             return false;
-        } else if(entity.isType(BombermanType.GRASS) || entity.isType(BombermanType.GRASS) || entity.isType(BombermanType.BOMB)){
-            entity.setViewWithBBox(flameDownView);
+        } else if(x == xCenter && y == yCenter && (entity.isType(BombermanType.FLAME)||entity.isType(BombermanType.GRASS)||entity.isType(BombermanType.BOMB))){
+            entity.setViewWithBBox(flameCenterView);
             if (!entity.isType(BombermanType.BOMB)) {
                 FXGL.getMasterTimer().runOnceAfter(() -> {
                     entity.setViewWithBBox(view);
