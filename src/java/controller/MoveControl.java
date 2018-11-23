@@ -19,7 +19,7 @@ public class MoveControl extends Component {
     private PositionComponent position;
     private BoundingBoxComponent bbox;
     private LocalTimer timer = FXGL.newLocalTimer();
-    private Entity player;
+    private PlayerControl player;
 
     private MoveDirection moveDir;
 
@@ -145,15 +145,21 @@ public class MoveControl extends Component {
             return false;
         }
         else {
-            player = playerInRange.get(0);
+            player = playerInRange.get(0).getComponent(PlayerControl.class);
             return true;
         }
     }
 
     public void followPlayer() {
-        double xPlayer = player.getX();
-        double yPlayer = player.getY();
-        if(position.getX() < xPlayer && position.getY() == yPlayer) left();
+        if(player.getMoveDir() == MoveDirection.UP){
+            down();
+        } else if(player.getMoveDir() == MoveDirection.DOWN){
+            up();
+        }else if(player.getMoveDir() == MoveDirection.LEFT){
+            right();
+        }else if(player.getMoveDir() == MoveDirection.RIGHT){
+            left();
+        }
 
     }
 

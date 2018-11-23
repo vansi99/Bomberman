@@ -39,6 +39,10 @@ public class PlayerControl extends Component {
 
     }
 
+    public MoveDirection getMoveDir() {
+        return moveDir;
+    }
+
     public void increaseMaxBombs() {
         maxBombs ++;
     }
