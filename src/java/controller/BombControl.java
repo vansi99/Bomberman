@@ -55,19 +55,12 @@ public class BombControl extends Component {
             }, Duration.seconds(0.7));
 
             return false;
-        } else if ((entity.isType(BombermanType.FLAME) || entity.isType(BombermanType.GRASS) || entity.isType(BombermanType.BOMB)) && x == this.xCenter && y == this.yCenter) {
-            entity.setViewWithBBox(flameCenterView);
-            FXGL.getMasterTimer().runOnceAfter(() -> {
-                entity.setViewWithBBox(view);
-            }, Duration.seconds(0.7));
-            return true;
-        }
-        else if(entity.isType(BombermanType.GRASS) ){
+        } else if(entity.isType(BombermanType.GRASS) || entity.isType(BombermanType.GRASS) || entity.isType(BombermanType.BOMB)){
             entity.setViewWithBBox(flameDownView);
             if (!entity.isType(BombermanType.BOMB)) {
                 FXGL.getMasterTimer().runOnceAfter(() -> {
                     entity.setViewWithBBox(view);
-                }, Duration.seconds(0.5));
+                }, Duration.seconds(0.7));
                 return true;
             }
         } else if (entity.isType(BombermanType.GRASS)) {
@@ -90,7 +83,7 @@ public class BombControl extends Component {
             x = entity.getPositionComponent().getGridX(Main.TILE_SIZE);
             y = entity.getPositionComponent().getGridY(Main.TILE_SIZE);
 
-            if ((y > yCenter && height == true) || (x > xCenter && width)) {
+            if ((y > yCenter && height) || (x > xCenter && width)) {
                 removed = removeBrick(entity, x, y);
                 if (!removed) break;
             }

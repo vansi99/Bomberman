@@ -35,7 +35,7 @@ public class PlayerControl extends Component {
 
     @Override
     public void onUpdate( double tpf){
-        speed = tpf * 60;
+        speed = tpf * 20;
 
     }
 
