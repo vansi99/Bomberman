@@ -76,7 +76,7 @@ public class BombermanFactory implements TextEntityFactory {
 
     @Spawns("Bomb")
     public Entity newBomb(SpawnData data){
-        play("newbomb.wav");
+        play("new_bomb.wav");
         Texture view = texture("Bomb/bomb1.png");
 
         return Entities.builder()

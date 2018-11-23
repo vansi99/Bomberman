@@ -40,7 +40,7 @@ public class BombControl extends Component {
     public boolean removeBrick(Entity entity, int x, int y)  {
         Texture view = texture("Grass/grasspecies2.png");
         Texture flameCenterView = texture("Flame/flame_center.png");
-        Texture flameHitView = texture("Flame/flame_down.png");
+        Texture flameDownView = texture("Flame/flame_down.png");
         if (entity.isType(BombermanType.WALL)) {
             return false;
         }
@@ -66,7 +66,7 @@ public class BombControl extends Component {
             return true;
         }
         else if(entity.isType(BombermanType.GRASS) ){
-            entity.setViewWithBBox(flameHitView);
+            entity.setViewWithBBox(flameDownView);
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setViewWithBBox(view);
             }, Duration.seconds(0.7));
@@ -103,7 +103,7 @@ public class BombControl extends Component {
     }
 
     public void explode(int xCenter, int yCenter) {
-        play("explosion.wav");
+        play("flame.wav");
         BoundingBoxComponent bbox = getEntity().getBoundingBoxComponent();
         this.xCenter = xCenter;
         this.yCenter = yCenter;

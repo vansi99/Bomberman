@@ -81,6 +81,7 @@ public class PlayerControl extends Component {
         view.setView(textureLeft);
     }
 
+
     public void right() {
 
         move(5*speed, 0);
