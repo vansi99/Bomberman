@@ -7,15 +7,13 @@ import main.BombermanType;
 import main.Main;
 
 public class FlameEnemyHandler extends CollisionHandler {
+
     public FlameEnemyHandler(){
         super(BombermanType.FLAME, BombermanType.ENEMY);
-
     }
 
     @Override
-    protected void onCollision(Entity flame, Entity enemy){
-        System.out.println(enemy);
-        System.out.println("collision");
+    protected void onCollisionBegin(Entity flame, Entity enemy){
         enemy.removeFromWorld();
     }
 }

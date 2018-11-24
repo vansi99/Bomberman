@@ -94,9 +94,10 @@ public class BombermanFactory implements TextEntityFactory {
     @Spawns("Flame")
     public Entity newFlame(SpawnData data){
         return Entities.builder()
-                .type(BombermanType.FLAME)
                 .from(data)
+                .type(BombermanType.FLAME)
                 .bbox(new HitBox("FLAME", new Point2D(0, 0), BoundingShape.box(40, 40)))
+                .with(new CollidableComponent(true))
                 .with(new FlameControl())
                 .build();
     }
