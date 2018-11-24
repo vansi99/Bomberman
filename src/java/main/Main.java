@@ -26,6 +26,15 @@ public class Main extends GameApplication {
 
     public static final int TILE_SIZE = 40;
 
+    public static final int WIDTH_SIZE = 17;
+
+    public static final int HEIGHT_SIZE = 13;
+
+    private static final int UI_SIZE = 10;
+
+    //seconds
+    public static final int TIME_PER_LEVEL = 240;
+
     private AStarGrid grid;
 
     public Entity getPlayer() {
@@ -42,8 +51,8 @@ public class Main extends GameApplication {
 
     @Override
     protected void initSettings(GameSettings settings) {
-        settings.setWidth(17 * TILE_SIZE);
-        settings.setHeight(13 * TILE_SIZE);
+        settings.setWidth(TILE_SIZE * WIDTH_SIZE);
+        settings.setHeight(TILE_SIZE * HEIGHT_SIZE + UI_SIZE);
         settings.setTitle("BombermanApp");
         settings.setVersion("0.1");
         settings.setIntroEnabled(false);
@@ -104,11 +113,12 @@ public class Main extends GameApplication {
         Level level = levelParser.parse("levels/0.txt");
 
         getGameWorld().setLevel(level);
+
         getGameWorld().spawn("player");
         getGameWorld().spawn("Enemy");
         getGameWorld().spawn("Oneal");
 
-        grid = new AStarGrid(Main.TILE_SIZE*11, Main.TILE_SIZE*11);
+        grid = new AStarGrid(Main.TILE_SIZE*12, Main.TILE_SIZE*12);
 
         getGameWorld().getEntitiesByType(BombermanType.WALL)
                 .stream()
