@@ -121,28 +121,22 @@ public class BombControl extends Component {
             if(direction.equals("down")){
 
                 if(i == dirEntitise.size() - 1) view = flameDownTailView;
-                else if((i+1<dirEntitise.size())
-                        &&(dirEntitise.get(i+1).isType(BombermanType.BRICK)
-                        ||dirEntitise.get(i+1).isType(BombermanType.WALL))) {
+                else if(dirEntitise.get(i+1).isType(BombermanType.WALL)) {
 
                     view = flameDownTailView;
-                } else view = flameDownView;
+                } else  view = flameDownView;
 
             } else if(direction.equals("left")){
 
                 if(i == dirEntitise.size() - 1) view = flameLeftTailView;
-                else if((i+1<dirEntitise.size())
-                        &&(dirEntitise.get(i+1).isType(BombermanType.BRICK)
-                        ||dirEntitise.get(i+1).isType(BombermanType.WALL))) {
+                else if(dirEntitise.get(i+1).isType(BombermanType.WALL)) {
 
                     view = flameLeftTailView;
                 } else  view = flameLeftView;
 
             } else if(direction.equals("up")){
                 if(i == dirEntitise.size() - 1) view = flameUpTailView;
-                else if((i+1<dirEntitise.size())
-                        &&(dirEntitise.get(i+1).isType(BombermanType.BRICK)
-                        ||dirEntitise.get(i+1).isType(BombermanType.WALL))) {
+                else if(dirEntitise.get(i+1).isType(BombermanType.WALL)) {
 
                     view = flameUpTailView;
                 } else view = flameUpView;
@@ -150,9 +144,7 @@ public class BombControl extends Component {
 
             } else if(direction.equals("right")){
                 if(i == dirEntitise.size() - 1) view = flameRightTailView;
-                else if((i+1<dirEntitise.size())
-                        &&(dirEntitise.get(i+1).isType(BombermanType.BRICK)
-                        ||dirEntitise.get(i+1).isType(BombermanType.WALL))) {
+                else if(dirEntitise.get(i+1).isType(BombermanType.WALL)) {
 
                     view = flameRightTailView;
                 } else view = flameRightView;
@@ -176,16 +168,9 @@ public class BombControl extends Component {
             y = entity.getPositionComponent().getGridY(Main.TILE_SIZE);
 
             if (y > yCenter && height) {
-                Texture flameDownView = texture("Flame/flame_down1.png");
-                removed = removeBrick(entity, x, y, flameDownView);
-                if (!removed) break;
-            }
-            if(x > xCenter && width){
-                Texture flameRightView = texture("Flame/flame_right1.png");
-                Texture flameRightTailView = texture("Flame/flame_right2.png");
-                removed = removeBrick(entity, x, y, flameRightView);
-
-                if (!removed) break;
+//                Texture flameDownView = texture("Flame/flame_down1.png");
+//                removed = removeBrick(entity, x, y, flameDownView);
+//                if (!removed) break;
                 down.add(entity);
             }
             if(x > xCenter && width){
