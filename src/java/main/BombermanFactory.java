@@ -1,6 +1,7 @@
 package main;
 
 
+import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.entity.view.EntityView;
 import com.almasb.fxgl.entity.*;
@@ -69,7 +70,7 @@ public class BombermanFactory implements TextEntityFactory {
                 .from(data)
                 .at(40,40)
                 .type(BombermanType.PLAYER)
-                .bbox(new HitBox("PLAYER_BODY", new Point2D(2, 2), BoundingShape.box(30,30)))
+                .bbox(new HitBox("PLAYER_BODY", new Point2D(2, 2), BoundingShape.box(35,35)))
                 .viewFromNode(view)
                 .with(new CollidableComponent(true))
                 .with(new PlayerControl())
@@ -92,32 +93,44 @@ public class BombermanFactory implements TextEntityFactory {
 
     @Spawns("Flame")
     public Entity newFlame(SpawnData data){
-//        play("bomb_bang.wav");
-//        Texture view = texture("Flame/bombbang.png");
-
         return Entities.builder()
                 .type(BombermanType.FLAME)
                 .from(data)
                 .bbox(new HitBox("FLAME", new Point2D(0, 0), BoundingShape.box(40, 40)))
-//                .viewFromNode(view)
                 .with(new FlameControl())
                 .build();
     }
 
     @Spawns("Enemy")
-    public Entity newEnemy(SpawnData data) {
-        Texture view = texture("Oneal/OnealDown.png");
+    public Entity newEnemy (SpawnData data){
+        Texture view = texture("Enemy/EnemyDown.png");
 
         Entity enemy = Entities.builder()
                         .from(data)
                         .type(BombermanType.ENEMY)
-                        .at(80,120)
-                        .bbox(new HitBox("ENEMY_BODY", new Point2D(2,2), BoundingShape.box(20,30)))
+                        .at(200, 120)
+                        .bbox(new HitBox("ENEMY_BODY", new Point2D(2, 2), BoundingShape.box(35, 35)))
                         .viewFromNode(view)
                         .with(new CollidableComponent(true))
                         .with(new MoveControl())
                         .build();
         return enemy;
+    }
+
+    @Spawns("Oneal")
+    public Entity newOneal(SpawnData data) {
+        Texture view = texture("Oneal/OnealDown.png");
+
+        Entity oneal = Entities.builder()
+                        .from(data)
+                        .type(BombermanType.ONEAL)
+                        .at(80,120)
+                        .bbox(new HitBox("ONEAL_BODY", new Point2D(2,2), BoundingShape.box(35,35)))
+                        .viewFromNode(view)
+                        .with(new CollidableComponent(true))
+                        .with(new MoveControl())
+                        .build();
+        return oneal;
     }
 
     @Override

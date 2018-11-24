@@ -35,7 +35,7 @@ public class PlayerControl extends Component {
 
     @Override
     public void onUpdate( double tpf){
-        speed = tpf * 20;
+        speed = tpf * 50;
 
     }
 
@@ -118,7 +118,6 @@ public class PlayerControl extends Component {
         if(walls == null){
             walls = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.WALL);
         }
-
 
         bricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BRICK);
 
