@@ -7,6 +7,8 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.entity.components.BoundingBoxComponent;
 import com.almasb.fxgl.entity.components.PositionComponent;
+import com.almasb.fxgl.entity.components.ViewComponent;
+import com.almasb.fxgl.texture.Texture;
 import com.almasb.fxgl.time.LocalTimer;
 import javafx.util.Duration;
 import main.BombermanType;
@@ -15,13 +17,20 @@ import main.Main;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MoveControl extends Component {
-    private PositionComponent position;
-    private BoundingBoxComponent bbox;
-    private LocalTimer timer = FXGL.newLocalTimer();
-    private PlayerControl player;
+import static com.almasb.fxgl.app.DSLKt.texture;
 
-    private MoveDirection moveDir;
+public class EnemyControl extends Component {
+    protected PositionComponent position;
+    protected BoundingBoxComponent bbox;
+    protected LocalTimer timer = FXGL.newLocalTimer();
+    protected ViewComponent view;
+
+    protected MoveDirection moveDir;
+
+    private Texture enemyUp = FXGL.getAssetLoader().loadTexture("Enemy/EnemyUp2.png");
+    private Texture enemyDown = FXGL.getAssetLoader().loadTexture("Enemy/EnemyDown2.png");
+    private Texture enemyLeft = FXGL.getAssetLoader().loadTexture("Enemy/EnemyLeft2.png");
+    private Texture enemyRight = FXGL.getAssetLoader().loadTexture("Enemy/EnemyRight2.png");
 
     public void setMoveDirection(MoveDirection moveDir) {
         this.moveDir = moveDir;
@@ -35,62 +44,56 @@ public class MoveControl extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-//        if (timer.elapsed(Duration.seconds(1.5))) {
-//            getEntity().getComponent(MoveControl.class).setMoveDirection(FXGLMath.random(MoveDirection.values()).get());
-//            timer.capture();
-//        }
-//
-//        speed = tpf * 60;
-//        if(hasPlayer()){
-//            followPlayer();
-//        }else {
-//            switch (moveDir) {
-//                case UP:
-//                    up();
-//                    break;
-//
-//                case DOWN:
-//                    down();
-//                    break;
-//
-//                case LEFT:
-//                    left();
-//                    break;
-//
-//                case RIGHT:
-//                    right();
-//                    break;
-//            }
-//        }
+        if (timer.elapsed(Duration.seconds(1.5))) {
+            getEntity().getComponent(EnemyControl.class).setMoveDirection(FXGLMath.random(MoveDirection.values()).get());
+            timer.capture();
+        }
+
+        speed = tpf * 40;
+        switch (moveDir) {
+            case UP:
+                up();
+                break;
+
+            case DOWN:
+                down();
+                break;
+
+            case LEFT:
+                left();
+                break;
+
+            case RIGHT:
+                right();
+                break;
+        }
     }
 
     public void up() {
         move(0, -5 * speed);
-
+        view.setView(enemyUp);
     }
 
     public void down() {
-
         move(0, 5 * speed);
-
+        view.setView(enemyDown);
     }
 
     public void left() {
-
         move(-5 * speed, 0);
-
+        view.setView(enemyLeft);
     }
 
     public void right() {
-
         move(5 * speed, 0);
+        view.setView(enemyRight);
     }
 
 
-    private List<Entity> walls;
+    protected List<Entity> walls;
     private List<Entity> bricks;
 
-    private boolean canMove(List<Entity> entities) {
+    protected boolean canMove(List<Entity> entities) {
         for (int j = 0; j < entities.size(); j++) {
             if (entities.get(j).getBoundingBoxComponent().isCollidingWith(bbox)) {
                 return true;
@@ -99,9 +102,9 @@ public class MoveControl extends Component {
         return false;
     }
 
-    private Vec2 velocity = new Vec2();
+    protected Vec2 velocity = new Vec2();
 
-    private void move(double dx, double dy) {
+    protected void move(double dx, double dy) {
         if (!getEntity().isActive())
             return;
 
@@ -129,36 +132,6 @@ public class MoveControl extends Component {
                 break;
             }
         }
-    }
-
-    public boolean hasPlayer(){
-        List<Entity> playerInRange = FXGL.getApp()
-                .getGameWorld()
-                .getEntitiesInRange(bbox.range(Main.TILE_SIZE*3, Main.TILE_SIZE*3))
-                .stream()
-                .filter(e -> e.isType(BombermanType.PLAYER))
-                .collect(Collectors.toList());
-        if(playerInRange.isEmpty()) {
-            player = null;
-            return false;
-        }
-        else {
-            player = playerInRange.get(0).getComponent(PlayerControl.class);
-            return true;
-        }
-    }
-
-    public void followPlayer() {
-        if(player.getMoveDir() == MoveDirection.UP){
-            down();
-        } else if(player.getMoveDir() == MoveDirection.DOWN){
-            up();
-        }else if(player.getMoveDir() == MoveDirection.LEFT){
-            right();
-        }else if(player.getMoveDir() == MoveDirection.RIGHT){
-            left();
-        }
-
     }
 
 }

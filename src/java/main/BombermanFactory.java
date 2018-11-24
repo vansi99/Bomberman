@@ -1,23 +1,13 @@
 package main;
 
 
-import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.entity.components.CollidableComponent;
-import com.almasb.fxgl.entity.view.EntityView;
 import com.almasb.fxgl.entity.*;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.texture.Texture;
-import controller.BombControl;
-import controller.FlameControl;
-import controller.MoveControl;
-import controller.PlayerControl;
+import controller.*;
 import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-
-import javax.xml.soap.Text;
 
 import static com.almasb.fxgl.app.DSLKt.play;
 import static com.almasb.fxgl.app.DSLKt.texture;
@@ -104,7 +94,7 @@ public class BombermanFactory implements TextEntityFactory {
 
     @Spawns("Enemy")
     public Entity newEnemy (SpawnData data){
-        Texture view = texture("Enemy/EnemyDown.png");
+        Texture view = texture("Enemy/EnemyDown2.png");
 
         Entity enemy = Entities.builder()
                         .from(data)
@@ -113,7 +103,7 @@ public class BombermanFactory implements TextEntityFactory {
                         .bbox(new HitBox("ENEMY_BODY", new Point2D(2, 2), BoundingShape.box(35, 35)))
                         .viewFromNode(view)
                         .with(new CollidableComponent(true))
-                        .with(new MoveControl())
+                        .with(new EnemyControl())
                         .build();
         return enemy;
     }
@@ -129,10 +119,12 @@ public class BombermanFactory implements TextEntityFactory {
                         .bbox(new HitBox("ONEAL_BODY", new Point2D(2,2), BoundingShape.box(35,35)))
                         .viewFromNode(view)
                         .with(new CollidableComponent(true))
-                        .with(new MoveControl())
+                        .with(new OnealControl())
                         .build();
         return oneal;
     }
+
+    @Spawns("")
 
     @Override
     public char emptyChar() {

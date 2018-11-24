@@ -60,7 +60,7 @@ public class PlayerControl extends Component {
         Entity bomb = FXGL.getApp()
                 .getGameWorld()
                 .spawn("Bomb", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE).put("radius", Main.TILE_SIZE / 10));
-        bomb.getComponent(BombControl.class).setLength(3);
+        bomb.getComponent(BombControl.class).setLength(2);
         FXGL.getMasterTimer().runOnceAfter(() -> {
             bomb.getComponent(BombControl.class).explode(x,y);
             bombsPlaced--;
