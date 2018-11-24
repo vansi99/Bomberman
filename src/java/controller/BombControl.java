@@ -86,15 +86,13 @@ public class BombControl extends Component {
                 Texture flameDownView = texture("Flame/flame_down1.png");
                 removed = removeBrick(entity, x, y, flameDownView);
                 if (!removed) break;
-
             }
             if(x > xCenter && width){
                 Texture flameRightView = texture("Flame/flame_right1.png");
-
+                Texture flameRightTailView = texture("Flame/flame_right2.png");
                 removed = removeBrick(entity, x, y, flameRightView);
 
-                if (!removed)
-                    break;
+                if (!removed) break;
             }
         }
         for (int i = entities.size() - 1; i >= 0; i--) {
