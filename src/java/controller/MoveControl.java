@@ -35,33 +35,33 @@ public class MoveControl extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        if (timer.elapsed(Duration.seconds(1.5))) {
-            getEntity().getComponent(MoveControl.class).setMoveDirection(FXGLMath.random(MoveDirection.values()).get());
-            timer.capture();
-        }
-
-        speed = tpf * 60;
-        if(hasPlayer()){
-            followPlayer();
-        }else {
-            switch (moveDir) {
-                case UP:
-                    up();
-                    break;
-
-                case DOWN:
-                    down();
-                    break;
-
-                case LEFT:
-                    left();
-                    break;
-
-                case RIGHT:
-                    right();
-                    break;
-            }
-        }
+//        if (timer.elapsed(Duration.seconds(1.5))) {
+//            getEntity().getComponent(MoveControl.class).setMoveDirection(FXGLMath.random(MoveDirection.values()).get());
+//            timer.capture();
+//        }
+//
+//        speed = tpf * 60;
+//        if(hasPlayer()){
+//            followPlayer();
+//        }else {
+//            switch (moveDir) {
+//                case UP:
+//                    up();
+//                    break;
+//
+//                case DOWN:
+//                    down();
+//                    break;
+//
+//                case LEFT:
+//                    left();
+//                    break;
+//
+//                case RIGHT:
+//                    right();
+//                    break;
+//            }
+//        }
     }
 
     public void up() {

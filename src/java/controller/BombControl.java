@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import main.BombermanType;
 import main.Main;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,9 +24,23 @@ import static com.almasb.fxgl.app.DSLKt.texture;
 
 public class BombControl extends Component {
     private int radius;
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    private int length;
     private PositionComponent position;
     private int xCenter;
     private int yCenter;
+    private ArrayList<Entity> down = new ArrayList<Entity>();
+    private ArrayList<Entity> up = new ArrayList<Entity>();
+    private ArrayList<Entity> left = new ArrayList<Entity>();
+    private ArrayList<Entity> right = new ArrayList<Entity>();
 
     public BombControl(int radius) {
         this.radius = radius;
@@ -54,29 +69,105 @@ public class BombControl extends Component {
 
             return false;
         }
-        else if(x == xCenter && y == yCenter &&(entity.isType(BombermanType.FLAME) || entity.isType(BombermanType.FLAME) || entity.isType(BombermanType.BOMB) )){
+        else if(x == xCenter
+                && y == yCenter
+                &&(entity.isType(BombermanType.FLAME)
+                || entity.isType(BombermanType.FLAME)
+                || entity.isType(BombermanType.BOMB) )){
             entity.setViewWithBBox(texture);
 
             if (!entity.isType(BombermanType.BOMB)) {
                 FXGL.getMasterTimer().runOnceAfter(() -> {
                     entity.setViewWithBBox(view);
-                }, Duration.seconds(0.7));
+                }, Duration.seconds(1));
                 return true;
             }
         } else if (entity.isType(BombermanType.GRASS)) {
             entity.setViewWithBBox(texture);
+            Entity flame = FXGL.getApp()
+                    .getGameWorld()
+                    .spawn("Flame", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
+
             FXGL.getMasterTimer().runOnceAfter(() -> {
+                entity.setType(BombermanType.GRASS);
+                flame.getComponent(FlameControl.class).burn();
                 entity.setViewWithBBox(view);
-            }, Duration.seconds(0.7));
+                entity.setRenderLayer(RenderLayer.BACKGROUND);
+            }, Duration.seconds(1));
             return true;
         }
         return false;
     }
 
+    public void removeEdge(ArrayList<Entity> dirEntitise, String direction){
+        boolean removed;
+        int x,y;
+
+        for (int i =0; i<dirEntitise.size(); i++){
+            Entity entityDir = dirEntitise.get(i);
+
+            Texture flameDownView = texture("Flame/flame_down1.png");
+            Texture flameLeftView = texture("Flame/flame_left1.png");
+            Texture flameRightView = texture("Flame/flame_right1.png");
+            Texture flameUpView = texture("Flame/flame_up1.png");
+
+            Texture flameDownTailView = texture("Flame/flame_down2.png");
+            Texture flameUpTailView = texture("Flame/flame_up2.png");
+            Texture flameLeftTailView = texture("Flame/flame_left2.png");
+            Texture flameRightTailView = texture("Flame/flame_right2.png");
+
+
+            Texture view = flameDownView;
+            if(direction.equals("down")){
+
+                if(i == dirEntitise.size() - 1) view = flameDownTailView;
+                else if((i+1<dirEntitise.size())
+                        &&(dirEntitise.get(i+1).isType(BombermanType.BRICK)
+                        ||dirEntitise.get(i+1).isType(BombermanType.WALL))) {
+
+                    view = flameDownTailView;
+                } else view = flameDownView;
+
+            } else if(direction.equals("left")){
+
+                if(i == dirEntitise.size() - 1) view = flameLeftTailView;
+                else if((i+1<dirEntitise.size())
+                        &&(dirEntitise.get(i+1).isType(BombermanType.BRICK)
+                        ||dirEntitise.get(i+1).isType(BombermanType.WALL))) {
+
+                    view = flameLeftTailView;
+                } else  view = flameLeftView;
+
+            } else if(direction.equals("up")){
+                if(i == dirEntitise.size() - 1) view = flameUpTailView;
+                else if((i+1<dirEntitise.size())
+                        &&(dirEntitise.get(i+1).isType(BombermanType.BRICK)
+                        ||dirEntitise.get(i+1).isType(BombermanType.WALL))) {
+
+                    view = flameUpTailView;
+                } else view = flameUpView;
+
+
+            } else if(direction.equals("right")){
+                if(i == dirEntitise.size() - 1) view = flameRightTailView;
+                else if((i+1<dirEntitise.size())
+                        &&(dirEntitise.get(i+1).isType(BombermanType.BRICK)
+                        ||dirEntitise.get(i+1).isType(BombermanType.WALL))) {
+
+                    view = flameRightTailView;
+                } else view = flameRightView;
+            }
+
+            x = entityDir.getPositionComponent().getGridX(Main.TILE_SIZE);
+            y = entityDir.getPositionComponent().getGridY(Main.TILE_SIZE);
+            removed = removeBrick(entityDir, x, y, view);
+
+            if(!removed) break;
+        }
+    }
 
     public void excRemove(List<Entity> entities, int xCenter, int yCenter, boolean width, boolean height) {
         int x, y;
-        boolean removed;
 
         for (int i = 0; i < entities.size(); i++) {
             Entity entity = entities.get(i);
@@ -84,18 +175,10 @@ public class BombControl extends Component {
             y = entity.getPositionComponent().getGridY(Main.TILE_SIZE);
 
             if (y > yCenter && height) {
-                Texture flameDownView = texture("Flame/flame_down1.png");
-                removed = removeBrick(entity, x, y, flameDownView);
-                if (!removed) break;
-
+                down.add(entity);
             }
             if(x > xCenter && width){
-                Texture flameRightView = texture("Flame/flame_right1.png");
-
-                removed = removeBrick(entity, x, y, flameRightView);
-
-                if (!removed)
-                    break;
+                right.add(entity);
             }
         }
         for (int i = entities.size() - 1; i >= 0; i--) {
@@ -104,21 +187,27 @@ public class BombControl extends Component {
             y = entity.getPositionComponent().getGridY(Main.TILE_SIZE);
 
             if (y < yCenter && height) {
-                Texture flameUpView = texture("Flame/flame_up1.png");
-
-                removed = removeBrick(entity, x, y, flameUpView);
-
-                if (!removed) break;
+                up.add(entity);
             }
             if(x < xCenter && width){
-                Texture flameLeftView = texture("Flame/flame_left1.png");
-
-                removed = removeBrick(entity, x, y, flameLeftView);
-
-                if (!removed)
-                    break;
+                left.add(entity);
             }
         }
+
+        removeEdge(down, "down");
+
+
+        removeEdge(left, "left");
+
+
+        removeEdge(right, "right");
+
+        removeEdge(up,"up");
+
+        left.clear();
+        right.clear();
+        down.clear();
+        up.clear();
         entities.clear();
     }
 
@@ -130,14 +219,14 @@ public class BombControl extends Component {
 
         List<Entity> entitiesHeight = FXGL.getApp()
                 .getGameWorld()
-                .getEntitiesInRange(bbox.range(0, Main.TILE_SIZE * 2))
+                .getEntitiesInRange(bbox.range(0, Main.TILE_SIZE * length))
                 .stream()
                 .filter(e -> e.isType(BombermanType.BRICK) || e.isType(BombermanType.WALL) || e.isType(BombermanType.GRASS))
                 .collect(Collectors.toList());
 
         List<Entity> entitiesWidth = FXGL.getApp()
                 .getGameWorld()
-                .getEntitiesInRange(bbox.range(Main.TILE_SIZE * 2, 0))
+                .getEntitiesInRange(bbox.range(Main.TILE_SIZE * length, 0))
                 .stream()
                 .filter(e -> e.isType(BombermanType.BRICK) || e.isType(BombermanType.WALL) || e.isType(BombermanType.GRASS))
                 .collect(Collectors.toList());

@@ -35,7 +35,7 @@ public class PlayerControl extends Component {
 
     @Override
     public void onUpdate( double tpf){
-        speed = tpf * 50;
+        speed = tpf * 30;
 
     }
 
@@ -60,6 +60,7 @@ public class PlayerControl extends Component {
         Entity bomb = FXGL.getApp()
                 .getGameWorld()
                 .spawn("Bomb", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE).put("radius", Main.TILE_SIZE / 10));
+        bomb.getComponent(BombControl.class).setLength(3);
         FXGL.getMasterTimer().runOnceAfter(() -> {
             bomb.getComponent(BombControl.class).explode(x,y);
             bombsPlaced--;
