@@ -1,6 +1,7 @@
 package main;
 
 import collision.FlameEnemyHandler;
+import collision.FlamePlayerHandler;
 import collision.PlayerEnemyHandler;
 import com.almasb.fxgl.app.ApplicationMode;
 import com.almasb.fxgl.app.FXGL;
@@ -130,6 +131,7 @@ public class Main extends GameApplication {
 
     @Override
     protected void initPhysics(){
+        //getPhysicsWorld().addCollisionHandler(new FlamePlayerHandler());
         getPhysicsWorld().addCollisionHandler(new FlameEnemyHandler());
         getPhysicsWorld().addCollisionHandler(new PlayerEnemyHandler());
     }

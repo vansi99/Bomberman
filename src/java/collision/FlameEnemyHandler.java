@@ -12,8 +12,4 @@ public class FlameEnemyHandler extends CollisionHandler {
         super(BombermanType.FLAME, BombermanType.ENEMY);
     }
 
-    @Override
-    protected void onCollisionBegin(Entity flame, Entity enemy){
-        enemy.removeFromWorld();
-    }
 }
