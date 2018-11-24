@@ -28,14 +28,14 @@ public class PlayerControl extends Component {
 
     private double speed = 0;
 
-    private Texture textureDown = FXGL.getAssetLoader().loadTexture("Bomberman/down.png");
-    private Texture textureUp = FXGL.getAssetLoader().loadTexture("Bomberman/up.png");
-    private Texture textureLeft = FXGL.getAssetLoader().loadTexture("Bomberman/left.png");
-    private Texture textureRight = FXGL.getAssetLoader().loadTexture("Bomberman/right.png");
+    private Texture textureDown = FXGL.getAssetLoader().loadTexture("Bomberman/down55.png");
+    private Texture textureUp = FXGL.getAssetLoader().loadTexture("Bomberman/up55.png");
+    private Texture textureLeft = FXGL.getAssetLoader().loadTexture("Bomberman/left55.png");
+    private Texture textureRight = FXGL.getAssetLoader().loadTexture("Bomberman/right55.png");
 
     @Override
     public void onUpdate( double tpf){
-        speed = tpf * 30;
+        speed = tpf * 50;
 
     }
 

@@ -9,6 +9,7 @@ import main.BombermanType;
 import main.Main;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class OnealControl extends EnemyControl {
@@ -25,8 +26,7 @@ public class OnealControl extends EnemyControl {
             getEntity().getComponent(OnealControl.class).setMoveDirection(FXGLMath.random(MoveDirection.values()).get());
             timer.capture();
         }
-
-        speed = tpf * 40;
+        speed = FXGLMath.random();
         if(hasPlayer()){
             followPlayer();
         }
@@ -52,25 +52,25 @@ public class OnealControl extends EnemyControl {
     }
     @Override
     public void up() {
-        move(0, -5 * speed);
+        move(0, -7 * speed);
         view.setView(onealUp);
     }
 
     @Override
     public void down() {
-        move(0, 5 * speed);
+        move(0, 7 * speed);
         view.setView(onealDown);
     }
 
     @Override
     public void left() {
-        move(-5 * speed, 0);
+        move(-7 * speed, 0);
         view.setView(onealLeft);
     }
 
     @Override
     public void right() {
-        move(5 * speed, 0);
+        move(7 * speed, 0);
         view.setView(onealRight);
     }
 

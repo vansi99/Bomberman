@@ -131,7 +131,7 @@ public class Main extends GameApplication {
 
     @Override
     protected void initPhysics(){
-        getPhysicsWorld().addCollisionHandler(new FlamePlayerHandler());
+        //getPhysicsWorld().addCollisionHandler(new FlamePlayerHandler());
         getPhysicsWorld().addCollisionHandler(new FlameEnemyHandler());
         getPhysicsWorld().addCollisionHandler(new PlayerEnemyHandler());
     }
