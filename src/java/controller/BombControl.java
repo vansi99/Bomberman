@@ -75,6 +75,9 @@ public class BombControl extends Component {
                 || entity.isType(BombermanType.FLAME)
                 || entity.isType(BombermanType.BOMB) )){
             entity.setViewWithBBox(texture);
+            Entity flame = FXGL.getApp()
+                    .getGameWorld()
+                    .spawn("Flame", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
 
             if (!entity.isType(BombermanType.BOMB)) {
                 FXGL.getMasterTimer().runOnceAfter(() -> {
