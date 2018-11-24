@@ -113,7 +113,7 @@ public class BombermanFactory implements TextEntityFactory {
 
         Entity oneal = Entities.builder()
                         .from(data)
-                        .type(BombermanType.ONEAL)
+                        .type(BombermanType.ENEMY)
                         .at(80,120)
                         .bbox(new HitBox("ONEAL_BODY", new Point2D(2,2), BoundingShape.box(35,35)))
                         .viewFromNode(view)

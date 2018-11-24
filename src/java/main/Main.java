@@ -1,5 +1,7 @@
 package main;
 
+import collision.FlameEnemyHandler;
+import collision.PlayerEnemyHandler;
 import com.almasb.fxgl.app.ApplicationMode;
 import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
@@ -119,14 +121,31 @@ public class Main extends GameApplication {
     }
 
     @Override
+    protected void onPostUpdate(double tpf) {
+        if(requestNewGame) {
+            requestNewGame = false;
+            startNewGame();
+        }
+    }
+
+    @Override
     protected void initPhysics(){
+        getPhysicsWorld().addCollisionHandler(new FlameEnemyHandler());
+        getPhysicsWorld().addCollisionHandler(new PlayerEnemyHandler());
     }
 
     @Override
     protected void initUI(){}
 
-    @Override
-    protected void onUpdate(double tpf){
+
+    private boolean requestNewGame = false;
+
+    public void onPlayerKilled(){
+        requestNewGame = true;
+    }
+
+    private void gameOver(){
+        getDisplay().showMessageBox("Game Over. Press OK to exit", this::exit);
     }
 
     public static void main(String[] args) {
