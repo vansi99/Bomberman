@@ -45,7 +45,7 @@ public class Main extends GameApplication {
         settings.setWidth(17 * TILE_SIZE);
         settings.setHeight(13 * TILE_SIZE);
         settings.setTitle("BombermanApp");
-        settings.setVersion("0.1");
+        settings.setVersion("0.8");
         settings.setIntroEnabled(false);
         settings.setMenuEnabled(false);
         settings.setApplicationMode(ApplicationMode.DEVELOPER);
@@ -73,7 +73,6 @@ public class Main extends GameApplication {
             @Override
             protected void onAction() {
                 getPlayerControl().right();
-
             }
         }, KeyCode.D);
 
@@ -107,18 +106,6 @@ public class Main extends GameApplication {
         getGameWorld().spawn("player");
         getGameWorld().spawn("Enemy");
         getGameWorld().spawn("Oneal");
-
-        grid = new AStarGrid(Main.TILE_SIZE*11, Main.TILE_SIZE*11);
-
-        getGameWorld().getEntitiesByType(BombermanType.WALL)
-                .stream()
-                .map(Entity::getPosition)
-                .forEach(point -> {
-                    int x = (int) point.getX() / TILE_SIZE;
-                    int y = (int) point.getY() / TILE_SIZE;
-
-                    grid.setNodeState(x, y, NodeState.NOT_WALKABLE);
-                });
     }
 
     @Override
@@ -131,7 +118,7 @@ public class Main extends GameApplication {
 
     @Override
     protected void initPhysics(){
-        //getPhysicsWorld().addCollisionHandler(new FlamePlayerHandler());
+        getPhysicsWorld().addCollisionHandler(new FlamePlayerHandler());
         getPhysicsWorld().addCollisionHandler(new FlameEnemyHandler());
         getPhysicsWorld().addCollisionHandler(new PlayerEnemyHandler());
     }

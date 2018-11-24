@@ -2,9 +2,15 @@ package collision;
 
 import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.physics.CollisionHandler;
+import com.almasb.fxgl.texture.Texture;
+import controller.PlayerControl;
+import javafx.util.Duration;
 import main.BombermanType;
 import main.Main;
+
+import static com.almasb.fxgl.app.DSLKt.texture;
 
 public class PlayerEnemyHandler extends CollisionHandler {
     private Main app;
@@ -16,7 +22,11 @@ public class PlayerEnemyHandler extends CollisionHandler {
 
     @Override
     protected void onCollisionBegin(Entity player, Entity enemy){
-        System.out.println("collision");
-        app.onPlayerKilled();
+        Texture deadPlayer = texture("Bomberman/bomber_dead.png");
+        player.setView(deadPlayer);
+        FXGL.getInput().clearAll();
+        FXGL.getMasterTimer().runOnceAfter(() -> {
+            app.onPlayerKilled();
+        }, Duration.seconds(1));
     }
 }
