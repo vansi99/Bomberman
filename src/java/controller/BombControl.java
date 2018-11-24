@@ -21,11 +21,6 @@ import static com.almasb.fxgl.app.DSLKt.texture;
 
 
 public class BombControl extends Component {
-    private int radius;
-
-    public int getLength() {
-        return length;
-    }
 
     public void setLength(int length) {
         this.length = length;
@@ -39,10 +34,6 @@ public class BombControl extends Component {
     private ArrayList<Entity> up = new ArrayList<Entity>();
     private ArrayList<Entity> left = new ArrayList<Entity>();
     private ArrayList<Entity> right = new ArrayList<Entity>();
-
-    public BombControl(int radius) {
-        this.radius = radius;
-    }
 
     @Override
     public void onUpdate(double tpf) {
