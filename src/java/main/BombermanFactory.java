@@ -54,13 +54,13 @@ public class BombermanFactory implements TextEntityFactory {
 
     @Spawns("player")
     public Entity newPlayer(SpawnData data){
-        Texture view = texture("Bomberman/down.png");
+        Texture view = texture("Bomberman/down55.png");
 
         return Entities.builder()
                 .from(data)
                 .at(40,40)
                 .type(BombermanType.PLAYER)
-                .bbox(new HitBox("PLAYER_BODY", new Point2D(2, 2), BoundingShape.box(35,35)))
+                .bbox(new HitBox("PLAYER_BODY", new Point2D(2, 2), BoundingShape.box(36,36)))
                 .viewFromNode(view)
                 .with(new CollidableComponent(true))
                 .with(new PlayerControl())
@@ -124,7 +124,61 @@ public class BombermanFactory implements TextEntityFactory {
         return oneal;
     }
 
-    @Spawns("")
+    @Spawns("SpeedIteam")
+    public Entity newSpeedItem (SpawnData data){
+        Texture view = texture("Item/item_shoe.png");
+
+        Entity speedItem = Entities.builder()
+                            .from(data)
+                            .type(BombermanType.SPEEDITEM)
+                            .at(80, 80)
+                            .bbox(new HitBox("SPEED_ITEM", new Point2D(2, 2), BoundingShape.box(40, 40)))
+                            .viewFromNode(view)
+                            .build();
+        return speedItem;
+    }
+
+    @Spawns("FlameItem")
+    public Entity newFlameItem (SpawnData data){
+        Texture view = texture("Item/item_bombsize.png");
+
+        Entity flameItem = Entities.builder()
+                .from(data)
+                .type(BombermanType.FLAMEITEM)
+                .at(240, 240)
+                .bbox(new HitBox("FLAME_ITEM", new Point2D(2, 2), BoundingShape.box(40, 40)))
+                .viewFromNode(view)
+                .build();
+        return flameItem;
+    }
+
+    @Spawns("BombItem")
+    public Entity newBombItem (SpawnData data){
+        Texture view = texture("Item/item_bomb.png");
+
+        Entity bombItem = Entities.builder()
+                .from(data)
+                .type(BombermanType.BOMBITEM)
+                .at(400, 400)
+                .bbox(new HitBox("BOMB_ITEM", new Point2D(2, 2), BoundingShape.box(40, 40)))
+                .viewFromNode(view)
+                .build();
+        return bombItem;
+    }
+
+    @Spawns("Portal")
+    public Entity newPortal (SpawnData data){
+        Texture view = texture("Portal/key.png");
+
+        Entity portal = Entities.builder()
+                .from(data)
+                .type(BombermanType.PORTAL)
+                .at(400, 400)
+                .bbox(new HitBox("PORTAL", new Point2D(2, 2), BoundingShape.box(40, 40)))
+                .viewFromNode(view)
+                .build();
+        return portal;
+    }
 
     @Override
     public char emptyChar() {

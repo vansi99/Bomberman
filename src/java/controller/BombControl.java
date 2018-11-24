@@ -8,8 +8,6 @@ import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.entity.components.BoundingBoxComponent;
 import com.almasb.fxgl.entity.components.PositionComponent;
 import com.almasb.fxgl.texture.Texture;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import main.BombermanType;
 import main.Main;
@@ -168,9 +166,6 @@ public class BombControl extends Component {
             y = entity.getPositionComponent().getGridY(Main.TILE_SIZE);
 
             if (y > yCenter && height) {
-//                Texture flameDownView = texture("Flame/flame_down1.png");
-//                removed = removeBrick(entity, x, y, flameDownView);
-//                if (!removed) break;
                 down.add(entity);
             }
             if(x > xCenter && width){
@@ -192,9 +187,7 @@ public class BombControl extends Component {
 
         removeEdge(down, "down");
 
-
         removeEdge(left, "left");
-
 
         removeEdge(right, "right");
 
