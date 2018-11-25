@@ -19,7 +19,7 @@ import java.util.List;
 
 public class PlayerControl extends Component {
     private PositionComponent position;
-    private int maxBombs = 100;
+    private int maxBombs = 1;
     private int bombsPlaced = 0;
     private int bombSize = 1;
     private boolean canMoveBomb = true;
