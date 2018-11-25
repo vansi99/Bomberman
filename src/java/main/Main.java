@@ -1,3 +1,5 @@
+
+
 package main;
 
 import collision.FlameEnemyHandler;
@@ -14,13 +16,20 @@ import com.almasb.fxgl.extra.ai.pathfinding.NodeState;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.parser.text.TextLevelParser;
 import com.almasb.fxgl.settings.GameSettings;
+import com.almasb.fxgl.ui.UI;
 import controller.PlayerControl;
 import javafx.scene.input.KeyCode;
 
+import javafx.util.Duration;
 import main.BombermanFactory;
 import main.BombermanType;
 
-import static com.almasb.fxgl.app.DSLKt.loopBGM;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import static com.almasb.fxgl.app.DSLKt.*;
 
 public class Main extends GameApplication {
 
@@ -33,7 +42,9 @@ public class Main extends GameApplication {
     private static final int UI_SIZE = 10;
 
     //seconds
-    public static final int TIME_PER_LEVEL = 240;
+    public static final int TIME_PER_LEVEL = 100;
+
+    public static final int MAX_LEVELS = 3;
 
     private AStarGrid grid;
 
@@ -54,11 +65,10 @@ public class Main extends GameApplication {
         settings.setWidth(TILE_SIZE * WIDTH_SIZE);
         settings.setHeight(TILE_SIZE * HEIGHT_SIZE + UI_SIZE);
         settings.setTitle("BombermanApp");
-        settings.setVersion("0.1");
+        settings.setVersion("0.8");
         settings.setIntroEnabled(false);
         settings.setMenuEnabled(false);
         settings.setApplicationMode(ApplicationMode.DEVELOPER);
-
     }
 
     @Override
@@ -82,7 +92,6 @@ public class Main extends GameApplication {
             @Override
             protected void onAction() {
                 getPlayerControl().right();
-
             }
         }, KeyCode.D);
 
@@ -93,6 +102,11 @@ public class Main extends GameApplication {
 
             }
         }, KeyCode.F);
+    }
+
+    @Override
+    protected void initGameVars(Map<String, Object> vars){
+        vars.put("time", TIME_PER_LEVEL);
     }
 
     @Override
@@ -111,7 +125,12 @@ public class Main extends GameApplication {
         TextLevelParser levelParser = new TextLevelParser(factory);
 
         Level level = levelParser.parse("levels/0.txt");
-
+//        levels = Arrays.asList(new Level, )
+//        for (int i = 0; i < MAX_LEVELS; i++) {
+//            level = levelParser.parse("levels/" + i + ".txt");
+//            System.out.println(i);
+//            getGameWorld().setLevel(level);
+//        }
         getGameWorld().setLevel(level);
 
         getGameWorld().spawn("player");
@@ -129,26 +148,80 @@ public class Main extends GameApplication {
 
                     grid.setNodeState(x, y, NodeState.NOT_WALKABLE);
                 });
+
+        getMasterTimer().runAtInterval(
+                () -> inc("time", -1),
+                Duration.seconds(1)
+        );
+
+        getGameState().<Integer>addListener("time", (old, now) -> {
+            if (now == 0) {
+                onPlayerKilled();
+            }
+        });
+    }
+
+    private List<Level> levels;
+
+    private void getCurrentLevel() {
+        return;
+    }
+
+    private void cleanupLevel(){
+        getGameWorld().getEntitiesByType(
+                BombermanType.ENEMY,
+                BombermanType.ONEAL,
+                BombermanType.WALL,
+                BombermanType.BRICK,
+                BombermanType.BOMB,
+                BombermanType.GRASS)
+                .forEach(Entity::removeFromWorld);
+    }
+
+    private void nextLevel() {
+        getInput().setProcessInput(false);
+
+        if (geti("level") > 0) {
+            cleanupLevel();
+        }
+
+        set("enemiesKilled", 0);
+        inc("level", +1);
+
+        if (geti("level") > MAX_LEVELS) {
+            gameOver();
+            return;
+        }
     }
 
     @Override
     protected void onPostUpdate(double tpf) {
         if(requestNewGame) {
             requestNewGame = false;
+            getStateMachine().getPlayState().removeStateListener(uiController);
             startNewGame();
         }
     }
 
     @Override
     protected void initPhysics(){
-        //getPhysicsWorld().addCollisionHandler(new FlamePlayerHandler());
+        getPhysicsWorld().addCollisionHandler(new FlamePlayerHandler());
         getPhysicsWorld().addCollisionHandler(new FlameEnemyHandler());
         getPhysicsWorld().addCollisionHandler(new PlayerEnemyHandler());
     }
 
-    @Override
-    protected void initUI(){}
+    private BombermanUIController uiController;
 
+    @Override
+    protected void initUI(){
+        uiController = new BombermanUIController();
+        getStateMachine().getPlayState().addStateListener(uiController);
+
+        UI ui = getAssetLoader().loadUI("ui_bomberman.fxml", uiController);
+        ui.getRoot().setTranslateY(HEIGHT_SIZE * TILE_SIZE);
+
+        getGameScene().addUI(ui);
+    }
 
     private boolean requestNewGame = false;
 

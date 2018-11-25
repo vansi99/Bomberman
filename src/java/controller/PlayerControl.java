@@ -64,7 +64,7 @@ public class PlayerControl extends Component {
         FXGL.getMasterTimer().runOnceAfter(() -> {
             bomb.getComponent(BombControl.class).explode(x,y);
             bombsPlaced--;
-        }, Duration.seconds(2));
+        }, Duration.seconds(3));
 
     }
 
