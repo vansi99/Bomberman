@@ -13,24 +13,18 @@ import com.almasb.fxgl.core.math.FXGLMath;
 public class BombermanUIController implements UIController, StateListener {
     @FXML
     private Pane root;
-
+    @FXML
     private ProgressBar timeBar;
     public void init(){
         timeBar = new ProgressBar(false);
-
-        timeBar.getStylesheets().add(getClass().getResource("/assets/ui/css/style.css").toExternalForm());
-        timeBar.getStyleClass().add("progress-bar");
-
+//        timeBar.getStylesheets().add(getClass().getResource("/assets/ui/css/style.css").toExternalForm());
+//        timeBar.getStyleClass().add("progress-bar");
         timeBar.setHeight(10);
         timeBar.setWidth(680);
         timeBar.setTranslateX(0);
         timeBar.setTranslateY(0);
-        timeBar.setFill(Color.RED);
-        timeBar.setBackgroundFill(Color.BLACK);
-
-        timeBar.setId("timeBar");
-
-
+        timeBar.setFill(Color.SADDLEBROWN);
+        timeBar.setBackgroundFill(Color.WHITE);
 
         timeBar.setMaxValue(Main.TIME_PER_LEVEL);
         timeBar.setMinValue(0);

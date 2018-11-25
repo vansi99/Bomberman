@@ -124,14 +124,9 @@ public class Main extends GameApplication {
 
         TextLevelParser levelParser = new TextLevelParser(factory);
 
-        Level level = levelParser.parse("levels/0.txt");
-//        levels = Arrays.asList(new Level, )
-//        for (int i = 0; i < MAX_LEVELS; i++) {
-//            level = levelParser.parse("levels/" + i + ".txt");
-//            System.out.println(i);
-//            getGameWorld().setLevel(level);
-//        }
+        Level level = levelParser.parse("levels/" + getCurrentLevel(levelParser) + ".txt");
         getGameWorld().setLevel(level);
+//        System.out.println(getCurrentLevel(levelParser));
 
         getGameWorld().spawn("player");
         getGameWorld().spawn("Enemy");
@@ -161,10 +156,11 @@ public class Main extends GameApplication {
         });
     }
 
-    private List<Level> levels;
 
-    private void getCurrentLevel() {
-        return;
+    private int getCurrentLevel() {
+        String currentLevel = Level.;
+        int level = (int)currentLevel.charAt(0) - 48;
+        return level;
     }
 
     private void cleanupLevel(){
