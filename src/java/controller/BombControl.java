@@ -45,24 +45,18 @@ public class BombControl extends Component {
         if (entity.isType(BombermanType.WALL)) {
             return false;
         } else if (entity.isType(BombermanType.BRICK)) {
-                Entity flame = FXGL.getApp()
-                        .getGameWorld()
-                        .spawn("Flame", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
-
             FXGL.getMasterTimer().runOnceAfter(() -> {
                 entity.setType(BombermanType.GRASS);
-                flame.getComponent(FlameControl.class).burn();
                 entity.setViewWithBBox(view);
                 entity.setRenderLayer(RenderLayer.BACKGROUND);
-                }, Duration.seconds(0.7));
+            }, Duration.seconds(0.7));
 
             return false;
-        }
-        else if(x == xCenter
+        } else if (x == xCenter
                 && y == yCenter
-                &&(entity.isType(BombermanType.FLAME)
+                && (entity.isType(BombermanType.FLAME)
                 || entity.isType(BombermanType.FLAME)
-                || entity.isType(BombermanType.BOMB) )){
+                || entity.isType(BombermanType.BOMB))) {
             entity.setViewWithBBox(texture);
             Entity flame = FXGL.getApp()
                     .getGameWorld()
@@ -87,15 +81,51 @@ public class BombControl extends Component {
                 entity.setRenderLayer(RenderLayer.BACKGROUND);
             }, Duration.seconds(1));
             return true;
+        } else if (entity.isType(BombermanType.BOMBBRICK)) {
+            FXGL.getMasterTimer().runOnceAfter(() -> {
+                entity.setType(BombermanType.GRASS);
+                entity.setViewWithBBox(view);
+                entity.setRenderLayer(RenderLayer.BACKGROUND);
+                FXGL.getApp()
+                        .getGameWorld()
+                        .spawn("bomb_item", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
+
+            }, Duration.seconds(0.7));
+
+            return false;
+        } else if (entity.isType(BombermanType.FLAMEBRICK)) {
+            FXGL.getMasterTimer().runOnceAfter(() -> {
+                entity.setType(BombermanType.GRASS);
+                entity.setViewWithBBox(view);
+                entity.setRenderLayer(RenderLayer.BACKGROUND);
+                FXGL.getApp()
+                        .getGameWorld()
+                        .spawn("flame_item", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
+
+            }, Duration.seconds(0.7));
+
+            return false;
+        } else if (entity.isType(BombermanType.SPEEDITEMBRICK)) {
+            FXGL.getMasterTimer().runOnceAfter(() -> {
+                entity.setType(BombermanType.GRASS);
+                entity.setViewWithBBox(view);
+                entity.setRenderLayer(RenderLayer.BACKGROUND);
+                FXGL.getApp()
+                        .getGameWorld()
+                        .spawn("speed_item", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
+
+            }, Duration.seconds(0.7));
+
+            return false;
         }
         return false;
     }
 
-    public void removeEdge(ArrayList<Entity> dirEntitise, String direction){
+    public void removeEdge(ArrayList<Entity> dirEntitise, String direction) {
         boolean removed;
-        int x,y;
+        int x, y;
 
-        for (int i =0; i<dirEntitise.size(); i++){
+        for (int i = 0; i < dirEntitise.size(); i++) {
             Entity entityDir = dirEntitise.get(i);
 
             Texture flameDownView = texture("Flame/flame_down1.png");
@@ -110,33 +140,33 @@ public class BombControl extends Component {
 
 
             Texture view = flameDownView;
-            if(direction.equals("down")){
+            if (direction.equals("down")) {
 
-                if(i == dirEntitise.size() - 1) view = flameDownTailView;
-                else if(dirEntitise.get(i+1).isType(BombermanType.WALL)) {
+                if (i == dirEntitise.size() - 1) view = flameDownTailView;
+                else if (dirEntitise.get(i + 1).isType(BombermanType.WALL)) {
 
                     view = flameDownTailView;
-                } else  view = flameDownView;
+                } else view = flameDownView;
 
-            } else if(direction.equals("left")){
+            } else if (direction.equals("left")) {
 
-                if(i == dirEntitise.size() - 1) view = flameLeftTailView;
-                else if(dirEntitise.get(i+1).isType(BombermanType.WALL)) {
+                if (i == dirEntitise.size() - 1) view = flameLeftTailView;
+                else if (dirEntitise.get(i + 1).isType(BombermanType.WALL)) {
 
                     view = flameLeftTailView;
-                } else  view = flameLeftView;
+                } else view = flameLeftView;
 
-            } else if(direction.equals("up")){
-                if(i == dirEntitise.size() - 1) view = flameUpTailView;
-                else if(dirEntitise.get(i+1).isType(BombermanType.WALL)) {
+            } else if (direction.equals("up")) {
+                if (i == dirEntitise.size() - 1) view = flameUpTailView;
+                else if (dirEntitise.get(i + 1).isType(BombermanType.WALL)) {
 
                     view = flameUpTailView;
                 } else view = flameUpView;
 
 
-            } else if(direction.equals("right")){
-                if(i == dirEntitise.size() - 1) view = flameRightTailView;
-                else if(dirEntitise.get(i+1).isType(BombermanType.WALL)) {
+            } else if (direction.equals("right")) {
+                if (i == dirEntitise.size() - 1) view = flameRightTailView;
+                else if (dirEntitise.get(i + 1).isType(BombermanType.WALL)) {
 
                     view = flameRightTailView;
                 } else view = flameRightView;
@@ -146,7 +176,7 @@ public class BombControl extends Component {
             y = entityDir.getPositionComponent().getGridY(Main.TILE_SIZE);
             removed = removeBrick(entityDir, x, y, view);
 
-            if(!removed) break;
+            if (!removed) break;
         }
     }
 
@@ -162,7 +192,7 @@ public class BombControl extends Component {
             if (y > yCenter && height) {
                 down.add(entity);
             }
-            if(x > xCenter && width){
+            if (x > xCenter && width) {
                 right.add(entity);
             }
         }
@@ -174,7 +204,7 @@ public class BombControl extends Component {
             if (y < yCenter && height) {
                 up.add(entity);
             }
-            if(x < xCenter && width){
+            if (x < xCenter && width) {
                 left.add(entity);
             }
         }
@@ -185,7 +215,7 @@ public class BombControl extends Component {
 
         removeEdge(right, "right");
 
-        removeEdge(up,"up");
+        removeEdge(up, "up");
 
         left.clear();
         right.clear();
@@ -204,14 +234,24 @@ public class BombControl extends Component {
                 .getGameWorld()
                 .getEntitiesInRange(bbox.range(0, Main.TILE_SIZE * length))
                 .stream()
-                .filter(e -> e.isType(BombermanType.BRICK) || e.isType(BombermanType.WALL) || e.isType(BombermanType.GRASS))
+                .filter(e -> e.isType(BombermanType.BRICK)
+                        || e.isType(BombermanType.WALL)
+                        || e.isType(BombermanType.GRASS)
+                        || e.isType(BombermanType.SPEEDITEMBRICK)
+                        || e.isType(BombermanType.BOMBBRICK)
+                        || e.isType(BombermanType.FLAMEBRICK))
                 .collect(Collectors.toList());
 
         List<Entity> entitiesWidth = FXGL.getApp()
                 .getGameWorld()
                 .getEntitiesInRange(bbox.range(Main.TILE_SIZE * length, 0))
                 .stream()
-                .filter(e -> e.isType(BombermanType.BRICK) || e.isType(BombermanType.WALL) || e.isType(BombermanType.GRASS))
+                .filter(e -> e.isType(BombermanType.BRICK)
+                        || e.isType(BombermanType.WALL)
+                        || e.isType(BombermanType.GRASS)
+                        || e.isType(BombermanType.SPEEDITEMBRICK)
+                        || e.isType(BombermanType.BOMBBRICK)
+                        || e.isType(BombermanType.FLAMEBRICK))
                 .collect(Collectors.toList());
 
         List<Entity> entityCenter = FXGL.getApp()
@@ -225,6 +265,6 @@ public class BombControl extends Component {
 
         excRemove(entitiesHeight, xCenter, yCenter, false, true);
         excRemove(entitiesWidth, xCenter, yCenter, true, false);
-        getEntity().removeFromWorld();
+        entity.removeFromWorld();
     }
 }

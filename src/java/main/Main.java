@@ -2,23 +2,20 @@
 
 package main;
 
-import collision.FlameEnemyHandler;
-import collision.FlamePlayerHandler;
-import collision.PlayerEnemyHandler;
+import collision.*;
 import com.almasb.fxgl.app.ApplicationMode;
-import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
-import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.Level;
 import com.almasb.fxgl.extra.ai.pathfinding.AStarGrid;
-import com.almasb.fxgl.extra.ai.pathfinding.NodeState;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.parser.text.TextLevelParser;
 import com.almasb.fxgl.settings.GameSettings;
 import com.almasb.fxgl.ui.UI;
 import controller.PlayerControl;
 import javafx.scene.input.KeyCode;
+
+import static com.almasb.fxgl.app.DSLKt.loopBGM;
 
 import javafx.util.Duration;
 import main.BombermanFactory;
@@ -97,7 +94,7 @@ public class Main extends GameApplication {
 
         getInput().addAction(new UserAction("Place Bomb") {
             @Override
-            protected void onAction() {
+            protected void onActionBegin() {
                 getPlayerControl().placeBomb();
 
             }
@@ -124,7 +121,7 @@ public class Main extends GameApplication {
 
         TextLevelParser levelParser = new TextLevelParser(factory);
 
-        Level level = levelParser.parse("levels/" + getCurrentLevel(levelParser) + ".txt");
+        Level level = levelParser.parse("levels/1.txt");
         getGameWorld().setLevel(level);
 //        System.out.println(getCurrentLevel(levelParser));
 
@@ -133,16 +130,6 @@ public class Main extends GameApplication {
         getGameWorld().spawn("Oneal");
 
         grid = new AStarGrid(Main.TILE_SIZE*12, Main.TILE_SIZE*12);
-
-        getGameWorld().getEntitiesByType(BombermanType.WALL)
-                .stream()
-                .map(Entity::getPosition)
-                .forEach(point -> {
-                    int x = (int) point.getX() / TILE_SIZE;
-                    int y = (int) point.getY() / TILE_SIZE;
-
-                    grid.setNodeState(x, y, NodeState.NOT_WALKABLE);
-                });
 
         getMasterTimer().runAtInterval(
                 () -> inc("time", -1),
@@ -157,38 +144,37 @@ public class Main extends GameApplication {
     }
 
 
-    private int getCurrentLevel() {
-        String currentLevel = Level.;
-        int level = (int)currentLevel.charAt(0) - 48;
-        return level;
-    }
+//    private int getCurrentLevel() {
+//        String currentLevel = Level.;
+//        int level = (int)currentLevel.charAt(0) - 48;
+//        return level;
+//    }
 
-    private void cleanupLevel(){
-        getGameWorld().getEntitiesByType(
-                BombermanType.ENEMY,
-                BombermanType.ONEAL,
-                BombermanType.WALL,
-                BombermanType.BRICK,
-                BombermanType.BOMB,
-                BombermanType.GRASS)
-                .forEach(Entity::removeFromWorld);
-    }
-
-    private void nextLevel() {
-        getInput().setProcessInput(false);
-
-        if (geti("level") > 0) {
-            cleanupLevel();
-        }
-
-        set("enemiesKilled", 0);
-        inc("level", +1);
-
-        if (geti("level") > MAX_LEVELS) {
-            gameOver();
-            return;
-        }
-    }
+//    private void cleanupLevel(){
+//        getGameWorld().getEntitiesByType(
+//                BombermanType.ENEMY,
+//                BombermanType.WALL,
+//                BombermanType.BRICK,
+//                BombermanType.BOMB,
+//                BombermanType.GRASS)
+//                .forEach(Entity::removeFromWorld);
+//    }
+//
+//    private void nextLevel() {
+//        getInput().setProcessInput(false);
+//
+//        if (geti("level") > 0) {
+//            cleanupLevel();
+//        }
+//
+//        set("enemiesKilled", 0);
+//        inc("level", +1);
+//
+//        if (geti("level") > MAX_LEVELS) {
+//            gameOver();
+//            return;
+//        }
+//    }
 
     @Override
     protected void onPostUpdate(double tpf) {
@@ -204,6 +190,10 @@ public class Main extends GameApplication {
         getPhysicsWorld().addCollisionHandler(new FlamePlayerHandler());
         getPhysicsWorld().addCollisionHandler(new FlameEnemyHandler());
         getPhysicsWorld().addCollisionHandler(new PlayerEnemyHandler());
+        getPhysicsWorld().addCollisionHandler(new PlayerSpeedItemHandler());
+        getPhysicsWorld().addCollisionHandler(new PlayerBombItemHandler());
+        getPhysicsWorld().addCollisionHandler(new PlayerFlameItemHandler());
+
     }
 
     private BombermanUIController uiController;
