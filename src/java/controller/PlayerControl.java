@@ -38,10 +38,7 @@ public class PlayerControl extends Component {
     public void onUpdate(double tpf) {
     }
 
-    public void increaseSpeed() {
-        this.speed = this.speed * 1.1;
-        System.out.println("increase");
-    }
+    public void increaseSpeed() { this.speed = this.speed * 1.1; }
 
     public MoveDirection getMoveDir() {
         return moveDir;

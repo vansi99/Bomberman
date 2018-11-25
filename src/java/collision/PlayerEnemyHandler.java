@@ -10,6 +10,7 @@ import javafx.util.Duration;
 import main.BombermanType;
 import main.Main;
 
+import static com.almasb.fxgl.app.DSLKt.play;
 import static com.almasb.fxgl.app.DSLKt.texture;
 
 public class PlayerEnemyHandler extends CollisionHandler {
@@ -22,11 +23,13 @@ public class PlayerEnemyHandler extends CollisionHandler {
 
     @Override
     protected void onCollisionBegin(Entity player, Entity enemy){
-        Texture deadPlayer = texture("Bomberman/bomber_dead.png");
+        Texture deadPlayer = texture("Bomberman/ghost50.png");
         player.setView(deadPlayer);
+        play("bomber_die.wav");
         FXGL.getInput().clearAll();
         FXGL.getMasterTimer().runOnceAfter(() -> {
             app.onPlayerKilled();
+
         }, Duration.seconds(1));
     }
 }

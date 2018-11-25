@@ -8,6 +8,7 @@ import javafx.util.Duration;
 import main.BombermanType;
 import main.Main;
 
+import static com.almasb.fxgl.app.DSLKt.play;
 import static com.almasb.fxgl.app.DSLKt.texture;
 
 
@@ -22,9 +23,9 @@ public class FlamePlayerHandler extends CollisionHandler {
 
     @Override
     protected void onCollisionBegin(Entity flame, Entity player){
-        Texture deadPlayer = texture("Bomberman/bomber_dead.png");
+        Texture deadPlayer = texture("Bomberman/bomber_dead50.png");
         player.setView(deadPlayer);
-
+        play("bomber_die.wav");
         FXGL.getMasterTimer().runOnceAfter(() -> {
             app.onPlayerKilled();
         }, Duration.seconds(1));
