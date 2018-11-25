@@ -147,8 +147,9 @@ public class BombermanFactory implements TextEntityFactory {
         return Entities.builder()
                 .type(BombermanType.BOMB)
                 .from(data)
-                .bbox(new HitBox("BOMB", new Point2D(0, 0), BoundingShape.box(40, 40)))
+                .bbox(new HitBox("BOMB", new Point2D(0, 0), BoundingShape.box(40, 30)))
                 .viewFromNode(view)
+                .with(new CollidableComponent(true))
                 .with(new BombControl())
                 .build();
     }

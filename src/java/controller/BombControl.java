@@ -265,6 +265,6 @@ public class BombControl extends Component {
 
         excRemove(entitiesHeight, xCenter, yCenter, false, true);
         excRemove(entitiesWidth, xCenter, yCenter, true, false);
-        getEntity().removeFromWorld();
+        entity.removeFromWorld();
     }
 }
