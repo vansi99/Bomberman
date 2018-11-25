@@ -197,7 +197,7 @@ public class Main extends GameApplication {
         getPhysicsWorld().addCollisionHandler(new PlayerSpeedItemHandler());
         getPhysicsWorld().addCollisionHandler(new PlayerBombItemHandler());
         getPhysicsWorld().addCollisionHandler(new PlayerFlameItemHandler());
-
+        getPhysicsWorld().addCollisionHandler(new PlayerPortalItemHandler());
     }
 
     private BombermanUIController uiController;
@@ -219,7 +219,7 @@ public class Main extends GameApplication {
         requestNewGame = true;
     }
 
-    private void gameOver(){
+    public void gameOver(){
         getDisplay().showMessageBox("Game Over. Press OK to exit", this::exit);
     }
 

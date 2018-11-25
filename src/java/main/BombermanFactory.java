@@ -53,7 +53,7 @@ public class BombermanFactory implements TextEntityFactory {
     }
 
     @SpawnSymbol('s')
-    public Entity newPortalSpeed(SpawnData data){
+    public Entity newItemSpeed(SpawnData data){
         Texture view = texture("Brick/editbrick.png");
 
         return Entities.builder()
@@ -65,7 +65,7 @@ public class BombermanFactory implements TextEntityFactory {
     }
 
     @SpawnSymbol('i')
-    public Entity newPortalBomb(SpawnData data){
+    public Entity newItemBomb(SpawnData data){
         Texture view = texture("Brick/editbrick.png");
 
         return Entities.builder()
@@ -77,13 +77,25 @@ public class BombermanFactory implements TextEntityFactory {
     }
 
     @SpawnSymbol('f')
-    public Entity newPortalFlame(SpawnData data){
+    public Entity newItemFlame(SpawnData data){
         Texture view = texture("Brick/editbrick.png");
 
         return Entities.builder()
                 .type(BombermanType.FLAMEBRICK)
                 .from(data)
                 .bbox(new HitBox("IncreaseFlame_Item", new Point2D(0,0), BoundingShape.box(40,30)))
+                .viewFromNode(view)
+                .build();
+    }
+
+    @SpawnSymbol('k')
+    public Entity newPortal(SpawnData data){
+        Texture view = texture("Brick/editbrick.png");
+
+        return Entities.builder()
+                .type(BombermanType.PORTALBRICK)
+                .from(data)
+                .bbox(new HitBox("NewPortal_Item", new Point2D(0,0), BoundingShape.box(40,30)))
                 .viewFromNode(view)
                 .build();
     }
@@ -119,6 +131,18 @@ public class BombermanFactory implements TextEntityFactory {
                 .from(data)
                 .type(BombermanType.FLAMEITEM)
                 .bbox(new HitBox("FLAME_ITEM", new Point2D(2,2),BoundingShape.box(40,30)))
+                .viewFromNode(view)
+                .with(new CollidableComponent(true))
+                .build();
+    }
+
+    @Spawns("portal_item")
+    public Entity newPortalItem(SpawnData data) {
+        Texture view = texture("Portal/key.png");
+        return Entities.builder()
+                .from(data)
+                .type(BombermanType.PORTAL)
+                .bbox(new HitBox("PORTAL_ITEM", new Point2D(2,2), BoundingShape.box(40,30)))
                 .viewFromNode(view)
                 .with(new CollidableComponent(true))
                 .build();

@@ -99,6 +99,7 @@ public class EnemyControl extends Component {
     private List<Entity> BombBricks;
     private List<Entity> FlameBricks;
     private List<Entity> Bombs;
+    private List<Entity> Portals;
 
     protected boolean canMove(List<Entity> entities) {
         for (int j = 0; j < entities.size(); j++) {
@@ -125,6 +126,7 @@ public class EnemyControl extends Component {
         BombBricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BOMBBRICK);
         FlameBricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.FLAMEBRICK);
         Bombs = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BOMB);
+        Portals = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.PORTALBRICK);
 
 
         velocity.set((float) dx, (float) dy);
@@ -141,6 +143,7 @@ public class EnemyControl extends Component {
             boolean collisionBombBricks = canMove(BombBricks);
             boolean collisionFlameBricks = canMove(FlameBricks);
             boolean collisionBombs = canMove(Bombs);
+            boolean collisionPortals = canMove(Portals);
 
 
             if (collisionBricks
@@ -148,7 +151,8 @@ public class EnemyControl extends Component {
                     || collisionSpeedBricks
                     || collisionBombBricks
                     || collisionFlameBricks
-                    || collisionBombs) {
+                    || collisionBombs
+                    || collisionPortals) {
                 position.translate(-velocity.x, -velocity.y);
                 break;
             }
