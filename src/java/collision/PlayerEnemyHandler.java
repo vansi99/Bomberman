@@ -29,7 +29,6 @@ public class PlayerEnemyHandler extends CollisionHandler {
         FXGL.getInput().clearAll();
         FXGL.getMasterTimer().runOnceAfter(() -> {
             app.onPlayerKilled();
-
         }, Duration.seconds(1));
     }
 }

@@ -113,6 +113,7 @@ public class PlayerControl extends Component {
     private List<Entity> BombBricks;
     private List<Entity> FlameBricks;
     private List<Entity> Bombs;
+    private List<Entity> Portals;
 
 
     private boolean canMove(List<Entity> entities) {
@@ -139,6 +140,8 @@ public class PlayerControl extends Component {
         BombBricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BOMBBRICK);
         FlameBricks = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.FLAMEBRICK);
         Bombs = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.BOMB);
+        Portals = FXGL.getApp().getGameWorld().getEntitiesByType(BombermanType.PORTALBRICK);
+
 
         double mag = Math.sqrt(dx * dx + dy * dy);
         long length = Math.round(mag);
@@ -155,13 +158,15 @@ public class PlayerControl extends Component {
             boolean collisionBombBricks = canMove(BombBricks);
             boolean collisionFlameBricks = canMove(FlameBricks);
             boolean collisionBombs = canMove(Bombs);
+            boolean collisionPortals = canMove(Portals);
 
             if (collisionBricks
                     || collisionWalls
                     || collisionSpeedBricks
                     || collisionBombBricks
                     || collisionFlameBricks
-                    || collisionBombs) {
+                    || collisionBombs
+                    || collisionPortals) {
                 position.translate(-unitX, -unitY);
                 break;
             }

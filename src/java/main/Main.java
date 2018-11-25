@@ -7,6 +7,7 @@ import com.almasb.fxgl.app.ApplicationMode;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.Level;
+import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.extra.ai.pathfinding.AStarGrid;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.parser.text.TextLevelParser;
@@ -22,9 +23,7 @@ import main.BombermanFactory;
 import main.BombermanType;
 
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.almasb.fxgl.app.DSLKt.*;
 
@@ -39,9 +38,9 @@ public class Main extends GameApplication {
     private static final int UI_SIZE = 10;
 
     //seconds
-    public static final int TIME_PER_LEVEL = 100;
+    public static final int TIME_PER_LEVEL = 240;
 
-    public static final int MAX_LEVELS = 3;
+//    public static final int MAX_LEVELS = 3;
 
     private AStarGrid grid;
 
@@ -121,13 +120,21 @@ public class Main extends GameApplication {
 
         TextLevelParser levelParser = new TextLevelParser(factory);
 
-        Level level = levelParser.parse("levels/1.txt");
+        ArrayList<String> paths = new ArrayList<String>();
+        paths.add("levels/0.txt");
+        paths.add("levels/1.txt");
+        paths.add("levels/2.txt");
+        int randomLevel = getRandom(1, 100);
+        String randomMap = paths.get(randomLevel % 3);
+
+        Level level = levelParser.parse(randomMap);
         getGameWorld().setLevel(level);
-//        System.out.println(getCurrentLevel(levelParser));
 
         getGameWorld().spawn("player");
-        getGameWorld().spawn("Enemy");
-        getGameWorld().spawn("Oneal");
+        getGameWorld().spawn("Enemy", new SpawnData(40, 400));
+        getGameWorld().spawn("Enemy", new SpawnData(600, 440));
+        getGameWorld().spawn("Enemy", new SpawnData(600, 120));
+        getGameWorld().spawn("Oneal", new SpawnData(120, 120));
 
         grid = new AStarGrid(Main.TILE_SIZE*12, Main.TILE_SIZE*12);
 
@@ -143,7 +150,11 @@ public class Main extends GameApplication {
         });
     }
 
-
+    public int getRandom(int min, int max)
+    {
+        Random r = new Random();
+        return min + r.nextInt(max - min);
+    }
 //    private int getCurrentLevel() {
 //        String currentLevel = Level.;
 //        int level = (int)currentLevel.charAt(0) - 48;
@@ -193,7 +204,7 @@ public class Main extends GameApplication {
         getPhysicsWorld().addCollisionHandler(new PlayerSpeedItemHandler());
         getPhysicsWorld().addCollisionHandler(new PlayerBombItemHandler());
         getPhysicsWorld().addCollisionHandler(new PlayerFlameItemHandler());
-
+        getPhysicsWorld().addCollisionHandler(new PlayerPortalItemHandler());
     }
 
     private BombermanUIController uiController;
@@ -215,7 +226,7 @@ public class Main extends GameApplication {
         requestNewGame = true;
     }
 
-    private void gameOver(){
+    public void gameOver(){
         getDisplay().showMessageBox("Game Over. Press OK to exit", this::exit);
     }
 

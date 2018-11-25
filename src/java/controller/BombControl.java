@@ -117,6 +117,18 @@ public class BombControl extends Component {
             }, Duration.seconds(0.7));
 
             return false;
+        } else if (entity.isType(BombermanType.PORTALBRICK)) {
+            FXGL.getMasterTimer().runOnceAfter(() -> {
+                entity.setType(BombermanType.GRASS);
+                entity.setViewWithBBox(view);
+                entity.setRenderLayer(RenderLayer.BACKGROUND);
+                FXGL.getApp()
+                        .getGameWorld()
+                        .spawn("portal_item", new SpawnData(x * Main.TILE_SIZE, y * Main.TILE_SIZE));
+
+            }, Duration.seconds(0.7));
+
+            return false;
         }
         return false;
     }
@@ -239,7 +251,8 @@ public class BombControl extends Component {
                         || e.isType(BombermanType.GRASS)
                         || e.isType(BombermanType.SPEEDITEMBRICK)
                         || e.isType(BombermanType.BOMBBRICK)
-                        || e.isType(BombermanType.FLAMEBRICK))
+                        || e.isType(BombermanType.FLAMEBRICK)
+                        || e.isType(BombermanType.PORTALBRICK))
                 .collect(Collectors.toList());
 
         List<Entity> entitiesWidth = FXGL.getApp()
@@ -251,7 +264,8 @@ public class BombControl extends Component {
                         || e.isType(BombermanType.GRASS)
                         || e.isType(BombermanType.SPEEDITEMBRICK)
                         || e.isType(BombermanType.BOMBBRICK)
-                        || e.isType(BombermanType.FLAMEBRICK))
+                        || e.isType(BombermanType.FLAMEBRICK)
+                        || e.isType(BombermanType.PORTALBRICK))
                 .collect(Collectors.toList());
 
         List<Entity> entityCenter = FXGL.getApp()

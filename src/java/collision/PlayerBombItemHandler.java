@@ -5,6 +5,8 @@ import com.almasb.fxgl.physics.CollisionHandler;
 import controller.PlayerControl;
 import main.BombermanType;
 
+import static com.almasb.fxgl.app.DSLKt.play;
+
 public class PlayerBombItemHandler extends CollisionHandler {
 
     private boolean increasedBomb = false;
@@ -19,6 +21,7 @@ public class PlayerBombItemHandler extends CollisionHandler {
         item.removeFromWorld();
         if (!increasedBomb) {
             player.getComponent(PlayerControl.class).increaseMaxBombs();
+            play("items.wav");
             increasedBomb = true;
         }
     }

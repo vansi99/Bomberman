@@ -5,6 +5,8 @@ import com.almasb.fxgl.physics.CollisionHandler;
 import controller.PlayerControl;
 import main.BombermanType;
 
+import static com.almasb.fxgl.app.DSLKt.play;
+
 public class PlayerSpeedItemHandler extends CollisionHandler {
     private boolean increasedSpeed = false;
 
@@ -19,6 +21,7 @@ public class PlayerSpeedItemHandler extends CollisionHandler {
         increasedSpeed = false;
         if (!increasedSpeed) {
             control.increaseSpeed();
+            play("items.wav");
             increasedSpeed = true;
         }
     }
