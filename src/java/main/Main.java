@@ -1,24 +1,16 @@
 package main;
 
-import collision.FlameEnemyHandler;
-import collision.FlamePlayerHandler;
-import collision.PlayerEnemyHandler;
+import collision.*;
 import com.almasb.fxgl.app.ApplicationMode;
-import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
-import com.almasb.fxgl.core.math.FXGLMath;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.Level;
 import com.almasb.fxgl.extra.ai.pathfinding.AStarGrid;
-import com.almasb.fxgl.extra.ai.pathfinding.NodeState;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.parser.text.TextLevelParser;
 import com.almasb.fxgl.settings.GameSettings;
 import controller.PlayerControl;
 import javafx.scene.input.KeyCode;
-
-import main.BombermanFactory;
-import main.BombermanType;
 
 import static com.almasb.fxgl.app.DSLKt.loopBGM;
 
@@ -78,7 +70,7 @@ public class Main extends GameApplication {
 
         getInput().addAction(new UserAction("Place Bomb") {
             @Override
-            protected void onAction() {
+            protected void onActionBegin() {
                 getPlayerControl().placeBomb();
 
             }
@@ -121,6 +113,10 @@ public class Main extends GameApplication {
         getPhysicsWorld().addCollisionHandler(new FlamePlayerHandler());
         getPhysicsWorld().addCollisionHandler(new FlameEnemyHandler());
         getPhysicsWorld().addCollisionHandler(new PlayerEnemyHandler());
+        getPhysicsWorld().addCollisionHandler(new PlayerSpeedItemHandler());
+        getPhysicsWorld().addCollisionHandler(new PlayerBombItemHandler());
+        getPhysicsWorld().addCollisionHandler(new PlayerFlameItemHandler());
+
     }
 
     @Override

@@ -31,23 +31,7 @@ public class OnealControl extends EnemyControl {
             followPlayer();
         }
         else {
-            switch (moveDir) {
-                case UP:
-                    up();
-                    break;
-
-                case DOWN:
-                    down();
-                    break;
-
-                case LEFT:
-                    left();
-                    break;
-
-                case RIGHT:
-                    right();
-                    break;
-            }
+           randomMove();
         }
     }
     @Override
